@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TarotCard } from "../Tarot/TarotCard";
+import { TarotCard } from "../types/TarotCard";
 
 
 interface Props {

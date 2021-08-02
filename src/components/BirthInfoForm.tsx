@@ -3,19 +3,20 @@ import React, { FormEvent, SyntheticEvent, useState } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import GooglePlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
-import { getHoroscope } from "../Astrology/Horoscope";
-import { AstrologyInfoContainer } from "../containers/AstrologyInfoContainer";
-import { Chart } from "../lib/astrochart.js";
+import { getHoroscope } from "../utils/Horoscope";
+import "../lib/astrochart";
 
 interface Props {
     handleDateChange?: void;
+    onFormSubmit?: void;
+    setCityValue?: void;
+    chartHoroscope?: void;
 }
 
 interface State {
     birthDate: Date;
     latitude: number;
     longitude: number;
-    myRef: React.RefObject<HTMLDivElement>;
 }
 
 export class BirthInfoForm extends React.Component<Props, State> {
@@ -25,7 +26,6 @@ export class BirthInfoForm extends React.Component<Props, State> {
             birthDate: new Date(),
             latitude: 0,
             longitude: 0,
-            myRef: React.createRef(),
         };
         this.handleDateChange = this.handleDateChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -54,7 +54,7 @@ export class BirthInfoForm extends React.Component<Props, State> {
     chartHoroscope(horoscope: Horoscope) {
         const chartPlanets = Object.assign(
             {},
-            ...horoscope.CelestialBodies.all.map((body) => {
+            ...horoscope.CelestialBodies.all.map((body: any) => {
                 const key = body.key.charAt(0).toUpperCase() + body.key.slice(1);
                 return { [key]: [body.ChartPosition.Ecliptic.DecimalDegrees] };
             })    
@@ -63,10 +63,10 @@ export class BirthInfoForm extends React.Component<Props, State> {
         const desc = (asc + 180) % 360;
         const mc = horoscope.Midheaven.ChartPosition.Horizon.DecimalDegrees;
         const ic = (horoscope.Midheaven.ChartPosition.Horizon.DecimalDegrees + 180) % 360;
-        const chartCusps = horoscope.Houses.map((cusp) => {
+        const chartCusps = horoscope.Houses.map((cusp: any) => {
             return cusp.ChartPosition.StartPosition.Ecliptic.DecimalDegrees;
         });
-        const chart = Chart("chart", 800, 800);
+        const chart = new astrology.Chart("chart", 800, 800);
         const data = {
             planets: chartPlanets,
             cusps: chartCusps,
@@ -83,8 +83,6 @@ export class BirthInfoForm extends React.Component<Props, State> {
             this.state.latitude, 
             this.state.longitude,
         );
-        console.log(horoscope);
-        console.log(this.state.myRef.current);
         this.chartHoroscope(horoscope);
     }
 
@@ -115,7 +113,7 @@ export class BirthInfoForm extends React.Component<Props, State> {
                         type="submit" 
                         value="Submit" />
                 </div>
-                <div id="chart" ref={this.state.myRef}/>
+                <div id="chart" />
             </form>
         );
     }

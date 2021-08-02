@@ -12,6 +12,8 @@
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
+        "allowJs": true,
+        "outDir": "./dist/out-tsc",
     },
     "compileOnSave": false,
     "exclude": ["node_modules"]

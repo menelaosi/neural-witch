@@ -1,6 +1,6 @@
 import * as React from "react";
 import { CardComponent } from "../components/CardComponent";
-import { TarotCard } from "../Tarot/TarotCard";
+import { TarotCard } from "../types/TarotCard";
 
 interface Props {
     tarotDeck: TarotCard[];

@@ -78,7 +78,7 @@ import TwoOfPentacles from '../assets/img/TwoOfPentacles.png';
 import TwoOfSwords from '../assets/img/TwoOfSwords.png';
 import TwoOfWands from '../assets/img/TwoOfWands.png';
 import WheelOfFortune from '../assets/img/WheelOfFortune.png';
-import tarot from './tarot.json';
+import tarot from '../assets/tarot.json';
 
 
 export class TarotCard { 

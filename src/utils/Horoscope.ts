@@ -1,4 +1,5 @@
 import { Origin, Horoscope } from "circular-natal-horoscope-js";
+import * as HoroscopeSettings from "../settings/HoroscopeSettings";
 
 function createOrigin(date: Date, 
     latitude: number, 
@@ -25,19 +26,11 @@ export function getHoroscope(date: Date,
                 latitude,
                 longitude,
             ),
-            houseSystem: "whole-sign",
-            zodiac: "tropical",
-            aspectPoints: [
-                "bodies", 
-                "points", 
-                "angles",
-            ],
-            aspectWithPoints: [
-                "bodies",
-                "points",
-                "angles",
-            ],
-            aspectTypes: ["major", "minor"],
+            houseSystem: HoroscopeSettings.HOUSE_SYSTEM,
+            zodiac: HoroscopeSettings.ZODIAC,
+            aspectPoints: HoroscopeSettings.ASPECTS,
+            aspectWithPoints: HoroscopeSettings.ASPECTS,
+            aspectTypes: HoroscopeSettings.ASPECT_TYPES,
             customOrbs: {
                 conjunction: 8,
                 opposition: 8,
@@ -49,6 +42,6 @@ export function getHoroscope(date: Date,
                 "semi-square": 1,
                 "semi-sextile": 1,
             },
-            language: "en",
+            language: HoroscopeSettings.LANGUAGE,
         });
     }
