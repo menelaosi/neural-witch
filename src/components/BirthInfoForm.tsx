@@ -1,10 +1,11 @@
 import { Horoscope } from "circular-natal-horoscope-js";
-import React, { FormEvent, SyntheticEvent, useState } from "react";
+import React, { FormEvent, SyntheticEvent } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import GooglePlacesAutoComplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
-import { getHoroscope } from "../utils/Horoscope";
 import "../lib/astrochart";
+import { getHoroscope } from "../utils/Horoscope";
+import { AstrologyChart } from "./AstrologyChart";
 
 interface Props {
     handleDateChange?: void;
@@ -104,7 +105,7 @@ export class BirthInfoForm extends React.Component<Props, State> {
                             selectProps={{
                                 onChange: this.setCityValue
                             }}
-                            apiKey="AIzaSyCZynalACGwF2944cAHp0oqCT7lxeEMGKs"
+                            apiKey={process.env.GOOGLE_API_KEY}
                         />
                     </div>
                 </label>
@@ -113,7 +114,9 @@ export class BirthInfoForm extends React.Component<Props, State> {
                         type="submit" 
                         value="Submit" />
                 </div>
-                <div id="chart" />
+                <AstrologyChart selectProps ={{
+                    onChange: this.chartHoroscope
+                }}/>
             </form>
         );
     }

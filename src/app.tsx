@@ -1,5 +1,4 @@
 import * as React from "react";
-import { CardComponent } from "./components/CardComponent";
 import { AstrologyInfoContainer } from "./containers/AstrologyInfoContainer";
 import { CardContainer } from "./containers/CardContainer";
 import { loadCards } from "./types/TarotCard";

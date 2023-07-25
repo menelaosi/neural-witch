@@ -1,6 +1,13 @@
-import { Origin, Horoscope } from "circular-natal-horoscope-js";
+import { Horoscope, Origin } from "circular-natal-horoscope-js";
 import * as HoroscopeSettings from "../settings/HoroscopeSettings";
 
+/**
+ * Returns the origin point for the Horoscope
+ * @param {Date} date - Date for the horoscope
+ * @param {number} latitude - Number representing the latitude coordinates
+ * @param {number} longitutude - Number representing the longitude coordinates
+ * @returns {Origin} Returns an origin from the information provided
+ */
 function createOrigin(date: Date, 
     latitude: number, 
     longitutude: number,
@@ -16,6 +23,13 @@ function createOrigin(date: Date,
         });
 }
 
+/**
+ * Gets a horoscope to map
+ * @param {Date} date - Date for the chart
+ * @param {number} latitude - Number representing the latitude coordinates
+ * @param {number} longitutude - Number representing the longitude coordinates
+ * @returns {Horoscope} - The horoscope using circular-natal-horoscope
+ */
 export function getHoroscope(date: Date, 
     latitude: number,
     longitude: number,
