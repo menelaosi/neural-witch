@@ -4,40 +4,18 @@ export const HOUSE_SYSTEM = "whole-sign";
 // Tropical rather than sidereal, etc.
 export const ZODIAC = "tropical";
 
-// Aspect points and aspect with points
-export const ASPECTS = [
-    "bodies",
-    "points",
-    "angles",
-];
-
-// Both major and minor aspect types
-export const ASPECT_TYPES = [
-    "major",
-    "minor",
-];
-
 // Default language is English
 export const LANGUAGE = "en";
 
-//Scale of symbols defaulted to 1
-export const SymbolScale = 1;
-
-// Planets collision circle radius for export const SymbolScale = 1
+// Planet collision circle radius for export const SymbolScale = 1
 // Scaling changes the collision radius 
-export const CollisionRadius = 10; //px
+export const COLLISION_RADIUS = 10; //px
 
 // BG color
 export const COLOR_BACKGROUND = "#fff";
 
-// Color of planet's symbols
-export const POINTS_COLOR = "#000";
-
 // Size of description text next to the planet: angle, retrograde, dignities, ...
 export const POINTS_TEXT_SIZE = 8;
-
-// Points strength of lines
-export const POINTS_STROKE = 1.8;
 
 // Font color of signs symbols
 export const SIGNS_COLOR = "#000"; 
@@ -115,4 +93,13 @@ export const SYMBOL_AXIS_STROKE = 1.6;
 
 // Cusps strength of lines
 export const CUSPS_STROKE = 1;
-export const CUSPS_FONT_COLOR = "#000";	
+export const CUSPS_FONT_COLOR = "#000";
+
+// What to do with this? Save it for now
+export const ASPECTS = {
+	"conjunction":{"degree":0, "orbit":10, "color":"transparent"}, 
+	"square":{"degree":90, "orbit":8, "color":"#FF4500"}, 
+	"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
+	"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
+};
+

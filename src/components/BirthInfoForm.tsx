@@ -58,8 +58,8 @@ export class BirthInfoForm extends React.Component<Props, State> {
             ...horoscope.CelestialBodies.all.map((body: any) => {
                 const key = body.key.charAt(0).toUpperCase() + body.key.slice(1);
                 return { [key]: [body.ChartPosition.Ecliptic.DecimalDegrees] };
-            })    
-        );    
+            })
+        );
         const asc = horoscope.Ascendant.ChartPosition.Horizon.DecimalDegrees;
         const desc = (asc + 180) % 360;
         const mc = horoscope.Midheaven.ChartPosition.Horizon.DecimalDegrees;
@@ -72,7 +72,7 @@ export class BirthInfoForm extends React.Component<Props, State> {
             planets: chartPlanets,
             cusps: chartCusps,
         };
-        const radix = chart.radix(data);    
+        const radix = chart.radix(data);
         radix.addPointsOfInterest({ As: [asc], Mc: [mc], Ds: [desc], Ic: [ic] });
         radix.aspects();
     }

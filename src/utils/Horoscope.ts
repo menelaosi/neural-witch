@@ -1,5 +1,10 @@
 import { Horoscope, Origin } from "circular-natal-horoscope-js";
-import * as HoroscopeSettings from "../settings/HoroscopeSettings";
+import {
+    HOUSE_SYSTEM,
+    LANGUAGE,
+    ZODIAC,
+} from "../settings/HoroscopeSettings";
+import { ASPECTS, ASPECT_TYPES } from "../types/AstrologyEnums";
 
 /**
  * Returns the origin point for the Horoscope
@@ -40,11 +45,11 @@ export function getHoroscope(date: Date,
                 latitude,
                 longitude,
             ),
-            houseSystem: HoroscopeSettings.HOUSE_SYSTEM,
-            zodiac: HoroscopeSettings.ZODIAC,
-            aspectPoints: HoroscopeSettings.ASPECTS,
-            aspectWithPoints: HoroscopeSettings.ASPECTS,
-            aspectTypes: HoroscopeSettings.ASPECT_TYPES,
+            houseSystem: HOUSE_SYSTEM,
+            zodiac: ZODIAC,
+            aspectPoints: ASPECTS,
+            aspectWithPoints: ASPECTS,
+            aspectTypes: ASPECT_TYPES,
             customOrbs: {
                 conjunction: 8,
                 opposition: 8,
@@ -56,6 +61,6 @@ export function getHoroscope(date: Date,
                 "semi-square": 1,
                 "semi-sextile": 1,
             },
-            language: HoroscopeSettings.LANGUAGE,
+            language: LANGUAGE,
         });
     }

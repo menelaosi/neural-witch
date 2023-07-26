@@ -68,14 +68,6 @@ enum Aspects {
 	Opposition = "opposition",
 };
 
-// What to do with this? Save it for now
-export const ASPECTS = {
-	"conjunction":{"degree":0, "orbit":10, "color":"transparent"}, 
-	"square":{"degree":90, "orbit":8, "color":"#FF4500"}, 
-	"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
-	"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
-};
-
 // Dignities
 export enum Dignities {
 	Rulership = "r",
@@ -84,6 +76,19 @@ export enum Dignities {
 	ExactExaltation = "E",
 	Fall = "f",
 };
+
+// Aspect points and aspect with points
+export const ASPECTS = [
+    "bodies",
+    "points",
+    "angles",
+];
+
+// Both major and minor aspect types
+export const ASPECT_TYPES = [
+    "major",
+    "minor",
+];
 
 // Source: Aleister Crowley
 export const DIGNITIES_EXACT_EXALTATION_DEFAULT = [

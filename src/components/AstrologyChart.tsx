@@ -17,6 +17,8 @@ export class AstrologyChart extends React.Component<Props, State> {
 	}
 
 	render() {
-		return <div/>;
+		return <div>
+			<g></g>
+		</div>;
 	}
 }
