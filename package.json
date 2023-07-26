@@ -1,6 +1,7 @@
 {
   "name": "neural-witch",
   "version": "0.1.0",
+  "description": "Neural Witch web app",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,6 +9,15 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/menelaosi/neural-witch.git"
+  },
+  "keywords": [
+    "astrology",
+    "tarot",
+    "spirituality"
+  ],
   "dependencies": {
     "@types/node": "20.4.5",
     "@types/react": "18.2.16",
