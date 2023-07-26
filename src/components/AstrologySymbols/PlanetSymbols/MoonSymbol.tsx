@@ -1,9 +1,10 @@
-import AstrologySymbol from "./AstrologySymbol";
+import AstrologySymbol from "../AstrologySymbol";
 
 interface MoonProps {
 	x: number;
 	y: number;
 	path: string;
+	isPlanet: boolean;
 };
 
 class MoonSymbol extends AstrologySymbol {
@@ -16,6 +17,7 @@ class MoonSymbol extends AstrologySymbol {
             x: x,
             y: y,
             path: "m" + x + ", " + y + " a 7.4969283,7.4969283 0 0 1 0,14.327462 7.4969283,7.4969283 0 1 0 0,-14.327462 z",
+			isPlanet: true,
         };
     }
 };
