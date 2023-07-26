@@ -1,4 +1,4 @@
-import AstrologySymbol from "../AstrologySymbol";
+import ZodiacSymbol from "./ZodiacSymbol";
 
 interface PiscesProps {
 	x: number;
@@ -6,7 +6,7 @@ interface PiscesProps {
 	path: string;
 };
 
-class PiscesSymbol extends AstrologySymbol {
+class PiscesSymbol extends ZodiacSymbol {
 	constructor(props: PiscesProps) {
 		super(props);
 		const x = Math.round(props.x - 8);

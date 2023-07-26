@@ -1,4 +1,4 @@
-import AstrologySymbol from "../AstrologySymbol";
+import ZodiacSymbol from "./ZodiacSymbol";
 
 interface ScorpioProps {
 	x: number;
@@ -6,7 +6,7 @@ interface ScorpioProps {
 	path: string;
 };
 
-class ScorpioSymbol extends AstrologySymbol {
+class ScorpioSymbol extends ZodiacSymbol {
 	constructor(props: ScorpioProps) {
 		super(props);
 		const x = Math.round(props.x - 9);

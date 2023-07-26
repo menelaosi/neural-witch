@@ -1225,7 +1225,7 @@
 																				
 				wrapper.appendChild(node);
 														
-			return wrapper;
+			return wrapper;S
 		};
 		
 		/**

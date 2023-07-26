@@ -1,4 +1,4 @@
-import AstrologySymbol from "../AstrologySymbol";
+import ZodiacSymbol from "./ZodiacSymbol";
 
 interface GeminiProps {
 	x: number;
@@ -6,7 +6,7 @@ interface GeminiProps {
 	path: string;
 };
 
-class GeminiSymbol extends AstrologySymbol {
+class GeminiSymbol extends ZodiacSymbol {
 	constructor(props: GeminiProps) {
 		super(props);
 		const x = Math.round(props.x - 6);
