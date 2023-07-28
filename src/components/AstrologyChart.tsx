@@ -1,17 +1,16 @@
 import { Horoscope } from "circular-natal-horoscope-js";
-import ChironSymbol from "./AstrologySymbols/PlanetSymbols/ChironSymbol";
-import JupiterSymbol from "./AstrologySymbols/PlanetSymbols/JupiterSymbol";
-import LilithSymbol from "./AstrologySymbols/PlanetSymbols/LilithSymbol";
-import MarsSymbol from "./AstrologySymbols/PlanetSymbols/MarsSymbol";
-import MercurySymbol from "./AstrologySymbols/PlanetSymbols/MercurySymbol";
-import MoonSymbol from "./AstrologySymbols/PlanetSymbols/MoonSymbol";
-import NeptuneSymbol from "./AstrologySymbols/PlanetSymbols/NeptuneSymbol";
-import NorthNodeSymbol from "./AstrologySymbols/PlanetSymbols/NorthNodeSymbol";
-import PlutoSymbol from "./AstrologySymbols/PlanetSymbols/PlutoSymbol";
-import SaturnSymbol from "./AstrologySymbols/PlanetSymbols/SaturnSymbol";
-import SunSymbol from "./AstrologySymbols/PlanetSymbols/SunSymbol";
-import UranusSymbol from "./AstrologySymbols/PlanetSymbols/UranusSymbol";
-import VenusSymbol from "./AstrologySymbols/PlanetSymbols/VenusSymbol";
+import AquariusSymbol from "./AstrologySymbols/ZodiacSymbols/AquariusSymbol";
+import AriesSymbol from "./AstrologySymbols/ZodiacSymbols/AriesSymbol";
+import CancerSymbol from "./AstrologySymbols/ZodiacSymbols/CancerSymbol";
+import CapricornSymbol from "./AstrologySymbols/ZodiacSymbols/CapricornSymbol";
+import GeminiSymbol from "./AstrologySymbols/ZodiacSymbols/GeminiSymbol";
+import LeoSymbol from "./AstrologySymbols/ZodiacSymbols/LeoSymbol";
+import LibraSymbol from "./AstrologySymbols/ZodiacSymbols/LibraSymbol";
+import PiscesSymbol from "./AstrologySymbols/ZodiacSymbols/PiscesSymbol";
+import SagittariusSymbol from "./AstrologySymbols/ZodiacSymbols/SagittariusSymbol";
+import ScorpioSymbol from "./AstrologySymbols/ZodiacSymbols/ScorpioSymbol";
+import TaurusSymbol from "./AstrologySymbols/ZodiacSymbols/TaurusSymbol";
+import VirgoSymbol from "./AstrologySymbols/ZodiacSymbols/VirgoSymbol";
 interface AstrologyChartProps {
 	horoscope: Horoscope | null;
 }
@@ -24,19 +23,18 @@ interface AstrologyChartProps {
 export default function AstrologyChart(props: AstrologyChartProps) {
 	return (
 		<div>
-			<ChironSymbol x={10} y={10}/>
-			<JupiterSymbol x={10} y={10}/>
-			<LilithSymbol x={10} y={10}/>
-			<MarsSymbol x={10} y={10}/>
-			<MercurySymbol x={10} y={10}/>
-			<MoonSymbol x={10} y={10}/>
-			<NeptuneSymbol x={10} y={10}/>
-			<NorthNodeSymbol x={10} y={10}/>
-			<PlutoSymbol x={10} y={10}/>
-			<SaturnSymbol x={10} y={10}/>
-			<SunSymbol x={10} y={10}/>
-			<UranusSymbol x={10} y={10}/>
-			<VenusSymbol x={10} y={10}/>
+			<AriesSymbol x={10} y={10}/>
+			<TaurusSymbol x={10} y={10}/>
+			<GeminiSymbol x={10} y={10}/>
+			<CancerSymbol x={10} y={10}/>
+			<LeoSymbol x={10} y={10}/>
+			<VirgoSymbol x={10} y={10}/>
+			<LibraSymbol x={10} y={10}/>
+			<ScorpioSymbol x={10} y={10}/>
+			<SagittariusSymbol x={10} y={10}/>
+			<CapricornSymbol x={10} y={10}/>
+			<AquariusSymbol x={10} y={10}/>
+			<PiscesSymbol x={10} y={10}/>
 		</div>
 	);
 };
