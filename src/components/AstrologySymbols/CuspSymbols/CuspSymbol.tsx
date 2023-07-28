@@ -1,16 +1,22 @@
 import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
 import AstrologySymbol from "../AstrologySymbol";
 
-export default function CuspSymbol(props: AstrologySymbolProps) {
+export default function CuspSymbol({
+	x,
+	y,
+	path,
+	hasSecondPath,
+	secondPath,
+}: AstrologySymbolProps) {
 	return (
 		<AstrologySymbol
-			x={props.x}
-			y={props.y}
-			path={props.path}
+			x={x}
+			y={y}
+			path={path}
 			strokeColor="#000"
 			strokeWidth="1"
-			hasSecondPath={props.hasSecondPath}
-			secondPath={props.secondPath}
+			hasSecondPath={hasSecondPath}
+			secondPath={secondPath}
 		/>
 	);
 };

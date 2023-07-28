@@ -1,14 +1,20 @@
 import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
 import AstrologySymbol from "../AstrologySymbol";
 
-export default function ZodiacSymbol(props: AstrologySymbolProps) {
+export default function ZodiacSymbol({
+	x,
+	y,
+	path,
+	hasSecondPath,
+	secondPath,
+}: AstrologySymbolProps) {
 	return (
 		<AstrologySymbol
-			x={props.x}
-			y={props.y}
-			path={props.path}
-			hasSecondPath={props.hasSecondPath}
-			secondPath={props.secondPath}
+			x={x}
+			y={y}
+			path={path}
+			hasSecondPath={hasSecondPath}
+			secondPath={secondPath}
 			strokeColor="#000000"
 			strokeWidth="1.8"
 		/>
