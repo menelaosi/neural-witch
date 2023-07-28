@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import tarot from '../../../public/tarot.json';
+import tarot from '../../public/tarot.json';
 
 /**
  * Reduced from a class, this is a simple interface for a Tarot Card
@@ -55,7 +55,7 @@ function shuffleDeck(tarotCards: TarotCard[]): TarotCard[] {
  * Shows a shuffled set of cards for now.
  * @returns {JSX.Element} with an image for each card in the deck currently
  */
-function CardComponent() {
+export default function CardComponent() {
 	const tarotDeck = loadCards();
 	return (
 		<div>
@@ -72,6 +72,4 @@ function CardComponent() {
 		</div>
 	);
 };
-
-export default CardComponent;
 
