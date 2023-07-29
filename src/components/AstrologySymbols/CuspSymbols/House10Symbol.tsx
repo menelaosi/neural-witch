@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import CuspSymbol from "./CuspSymbol";
 
 export default function House10Symbol({

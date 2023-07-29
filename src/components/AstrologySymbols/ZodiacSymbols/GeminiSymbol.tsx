@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
 export default function GeminiSymbol({
@@ -20,6 +20,7 @@ export default function GeminiSymbol({
 				m -13.4708165,-14.4330172 1.9244023,1.924402 1.9244024,0.9622012 2.8866038,0.9622011 3.848804,0 2.886604,-0.9622011 1.924402,-0.9622012 1.924403,-1.924402
 				m -17.3196215,17.3196207 1.9244023,-1.9244024 1.9244024,-0.9622011 2.8866038,-0.9622012 3.848804,0 2.886604,0.9622012 1.924402,0.9622011 1.924403,1.9244024
 			`}
+			strokeColor={ColorSigns.ColorGemini}
 		/>
 	);
 };

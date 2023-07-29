@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
 export default function CancerSymbol({
@@ -20,6 +20,7 @@ export default function CancerSymbol({
 				m 18,-3 -1,-2 -1,-1 -2,-1
 				m -4,4 1,2 1,1 2,1
 			`}
+			strokeColor={ColorSigns.ColorCancer}
 		/>
 	);
 };

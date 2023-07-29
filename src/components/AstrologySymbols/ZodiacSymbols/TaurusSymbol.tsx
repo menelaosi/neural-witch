@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
 export default function TaurusSymbol({
@@ -19,6 +19,7 @@ export default function TaurusSymbol({
 				m -4,1 -2,1 -1,2 0,3 1,3
 				m 8,0 1,-3 0,-3 -1,-2 -2,-1
 			`}
+			strokeColor={ColorSigns.ColorTaurus}
 		/>
 	);
 };

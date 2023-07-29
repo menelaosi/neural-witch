@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
 export default function ScorpioSymbol({
@@ -20,6 +20,7 @@ export default function ScorpioSymbol({
 				m 0.79270337,-9.5124404 2.37811013,-2.3781101 2.3781101,2.3781101 0,8.719737 1.5854067,1.5854068
 				m -4.7562202,-11.8905505 2.3781101,2.3781101 0,8.719737 1.5854067,1.5854067 2.3781101,-2.3781101
 			`}
+			strokeColor={ColorSigns.ColorScorpio}
 		/>
 	);
 };

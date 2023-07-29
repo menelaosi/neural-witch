@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
 export default function PiscesSymbol({
@@ -22,6 +22,7 @@ export default function PiscesSymbol({
 				m -17,-9 18,0
 				m -18,1 18,0
 			`}
+			strokeColor={ColorSigns.ColorPisces}
 		/>
 	);
 };

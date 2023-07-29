@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 
 export default function AstrologySymbol({
 	path,

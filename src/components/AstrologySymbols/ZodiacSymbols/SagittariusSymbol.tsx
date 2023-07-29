@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
 export default function SagittariusSymbol({
@@ -23,6 +23,7 @@ export default function SagittariusSymbol({
 				m 7.4875675,0 0,7.48756746
 				m -1.0696525,-6.417915 0,3.2089575 1.0696525,3.2089575
 			`}
+			strokeColor={ColorSigns.ColorSagittarius}
 		/>
 	);
 };

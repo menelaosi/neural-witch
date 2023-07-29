@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import AxisSymbol from "./AxisSymbol";
 
 export default function AscendantSymbol({

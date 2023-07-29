@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import AstrologySymbol from "../AstrologySymbol";
 
 export default function ZodiacSymbol({
@@ -7,6 +7,7 @@ export default function ZodiacSymbol({
 	path,
 	hasSecondPath,
 	secondPath,
+	strokeColor = "#000000",
 }: AstrologySymbolProps) {
 	return (
 		<AstrologySymbol
@@ -15,7 +16,7 @@ export default function ZodiacSymbol({
 			path={path}
 			hasSecondPath={hasSecondPath}
 			secondPath={secondPath}
-			strokeColor="#000000"
+			strokeColor={strokeColor}
 			strokeWidth="1.8"
 		/>
 	);

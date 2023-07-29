@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
 export default function LeoSymbol({
@@ -17,6 +17,7 @@ export default function LeoSymbol({
 				m -13,-5 -2,-3 -1,-2 0,-3 1,-2 1,-1
 				m 7,-1 3,1 2,2 1,2 0,3 -1,3 -2,3
 			`}
+			strokeColor={ColorSigns.ColorLeo}
 		/>
 	);
 };

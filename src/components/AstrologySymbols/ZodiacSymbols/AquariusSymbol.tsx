@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
 export default function AquariusSymbol({
@@ -22,6 +22,7 @@ export default function AquariusSymbol({
 				m -3.84880467,-0.96220121 2.88660347,1.92440231 2.8866035,-2.88660348 1.9244024,1.92440238
 				m -2.8866035,-0.96220121 1.9244023,1.92440231 2.8866035,-2.88660348
 			`}
+			strokeColor={ColorSigns.ColorAquarius}
 		/>
 	);
 };

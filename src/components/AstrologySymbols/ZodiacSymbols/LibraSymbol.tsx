@@ -1,4 +1,4 @@
-import { AstrologySymbolProps } from "@/types/AstrologySymbolProps";
+import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
 export default function LibraSymbol({
@@ -39,6 +39,7 @@ export default function LibraSymbol({
 				m -7.8496,13.45899 15.6992,0 0,0.67187 -15.6992,0
 				z
 			`}
+			strokeColor={ColorSigns.ColorLibra}
 		/>
 	);
 };

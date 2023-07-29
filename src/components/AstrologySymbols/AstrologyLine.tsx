@@ -3,7 +3,8 @@ interface AstrologyLineProps {
 	y1: number;
 	x2: number;
 	y2: number;
-	color: string;
+	stroke?: string;
+	strokeWidth?: number;
 };
 
 export default function AstrologyLine({
@@ -11,7 +12,8 @@ export default function AstrologyLine({
 	x2,
 	y1,
 	y2,
-	color,
+	stroke,
+	strokeWidth,
 }: AstrologyLineProps) {
 	return (
 		<line
@@ -19,7 +21,8 @@ export default function AstrologyLine({
 			x2={x2}
 			y1={y1}
 			y2={y2}
-			color={color}
+			stroke={stroke}
+			strokeWidth={strokeWidth}
 		/>
 	);
 };

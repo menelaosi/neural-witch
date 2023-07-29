@@ -1,3 +1,5 @@
+import { convertShiftInDegrees } from "@/lib/AstrologyUtils";
+
 interface AstrologySegmentProps {
 	x: number;
 	y: number;
@@ -7,16 +9,10 @@ interface AstrologySegmentProps {
 	thickness: number;
 	lFlag?: number;
 	sFlag?: number;
+	fill?: string;
+	stroke?: string;
+	strokeWidth?: number;
 };
-
-/**
- * Converts from radians to degrees
- * @param {number} angle - The angle in radians to convert to degrees
- * @returns {number} angle in degrees
- */
-function convertShiftInDegrees(angle: number): number {
-	return ((180 - angle) % 360) * Math.PI / 180;
-}
 
 /**
  * Creates a segment SVG
@@ -32,6 +28,9 @@ export default function AstrologySegment({
 	thickness,
 	lFlag = 0,
 	sFlag = 0,
+	stroke,
+	strokeWidth,
+	fill = "none",
 }: AstrologySegmentProps) {
 	// Some constants for angles in degress and radius minus thickness
 	const angleFromShift = convertShiftInDegrees(angleFrom);
@@ -58,7 +57,7 @@ export default function AstrologySegment({
 
 	const point3 = {
 		x: x + radius * cosineAngleToShift,
-		y: radius * sineAngleToShift,
+		y: y + radius * sineAngleToShift,
 	};
 
 	const point4 = {
@@ -76,7 +75,9 @@ export default function AstrologySegment({
 				l ${point4.x}, ${point4.y}
 				A ${thickness}, ${thickness},0 ,${lFlag}, 1, ${point1.x}, ${point1.y}
 			`}
-			fill="none"
+			fill={fill}
+			stroke={stroke}
+			strokeWidth={strokeWidth}
 		/>
 	);
 };
