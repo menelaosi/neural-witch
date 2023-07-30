@@ -1,5 +1,5 @@
 import { DARK_GRAY, INNER_CIRCLE_RADIUS_RATIO, getPointPosition } from "@/lib/AstrologyUtils";
-import { ColorSigns, SignSymbol } from "@/types/AstrologyTypes";
+import { SignSymbol } from "@/types/AstrologyTypes";
 import { ReactElement } from "react";
 import AstrologySegment from "./AstrologySymbols/AstrologySegment";
 import AquariusSymbol from "./AstrologySymbols/ZodiacSymbols/AquariusSymbol";
@@ -29,8 +29,8 @@ function getSegments(
 	radius: number,
 ) {
 	const segments: ReactElement[] = [];
-	const colorList = Object.values(ColorSigns);
-	for (let i = 0, step = 30, start = shift; i < colorList.length; i++) {
+	const signList = Object.values(SignSymbol);
+	for (let i = 0, step = 30, start = shift; i < signList.length; i++) {
 		const angleTo = start + step;
 		const thickness = radius - (radius / INNER_CIRCLE_RADIUS_RATIO);
 		segments.push(

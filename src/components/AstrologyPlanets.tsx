@@ -77,7 +77,7 @@ function getPlanetSymbol(
 	y: number,
 	key: number,
 ) {
-	const PlanetComponent = planetSymbols[planet]
+	const PlanetComponent = planetSymbols[planet];
 	return (
 		<PlanetComponent
 			x={x}

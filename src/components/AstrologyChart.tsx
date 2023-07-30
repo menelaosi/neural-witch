@@ -1,6 +1,7 @@
 import { INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, PADDING, RULER_RADIUS, WHITE, radiansToDegree } from "@/lib/AstrologyUtils";
 import { PlanetSymbol } from "@/types/AstrologyTypes";
 import { Horoscope } from "circular-natal-horoscope-js";
+import AstrologyAxis from "./AstrologyAxis";
 import AstrologyPlanets from "./AstrologyPlanets";
 import AstrologyRuler from "./AstrologyRuler";
 import AstrologySegment from "./AstrologySymbols/AstrologySegment";
@@ -126,6 +127,9 @@ export default function AstrologyChart({
 					rulerRadius={rulerRadius}
 					pointRadius={pointRadius}
 					shift={shift}
+				/>
+				<AstrologyAxis
+
 				/>
 			</g>
 		</svg>
