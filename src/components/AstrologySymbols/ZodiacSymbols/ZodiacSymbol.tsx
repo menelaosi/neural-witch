@@ -1,9 +1,9 @@
+import { POINTS_STROKE } from "@/lib/AstrologyUtils";
 import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import AstrologySymbol from "../AstrologySymbol";
 
 export default function ZodiacSymbol({
-	x,
-	y,
+	point,
 	path,
 	hasSecondPath,
 	secondPath,
@@ -11,13 +11,12 @@ export default function ZodiacSymbol({
 }: AstrologySymbolProps) {
 	return (
 		<AstrologySymbol
-			x={x}
-			y={y}
+			point={point}
 			path={path}
 			hasSecondPath={hasSecondPath}
 			secondPath={secondPath}
 			strokeColor={strokeColor}
-			strokeWidth="1.8"
+			strokeWidth={POINTS_STROKE.toString()}
 		/>
 	);
 };

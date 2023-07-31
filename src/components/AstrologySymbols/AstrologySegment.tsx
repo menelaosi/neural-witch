@@ -1,8 +1,8 @@
 import { convertShiftInDegrees } from "@/lib/AstrologyUtils";
+import { Point } from "@/types/AstrologyTypes";
 
 interface AstrologySegmentProps {
-	x: number;
-	y: number;
+	point: Point;
 	radius: number;
 	angleFrom: number;
 	angleTo: number;
@@ -20,8 +20,7 @@ interface AstrologySegmentProps {
  * @returns the segment in SVG
  */
 export default function AstrologySegment({
-	x,
-	y,
+	point,
 	radius,
 	angleFrom,
 	angleTo,
@@ -46,8 +45,8 @@ export default function AstrologySegment({
 	// Define the points for the SVG
 
 	const point1 = {
-		x: x + thickness * cosineAngleFromShift,
-		y: y + thickness * sineAngleFromShift,
+		x: point.x + thickness * cosineAngleFromShift,
+		y: point.y + thickness * sineAngleFromShift,
 	};
 	
 	const point2 = {
@@ -56,8 +55,8 @@ export default function AstrologySegment({
 	};
 
 	const point3 = {
-		x: x + radius * cosineAngleToShift,
-		y: y + radius * sineAngleToShift,
+		x: point.x + radius * cosineAngleToShift,
+		y: point.y + radius * sineAngleToShift,
 	};
 
 	const point4 = {

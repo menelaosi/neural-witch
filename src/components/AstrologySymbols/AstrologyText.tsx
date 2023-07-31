@@ -1,18 +1,22 @@
+import { Point } from "@/types/AstrologyTypes";
+
 interface AstrologyTextProps {
 	text: string;
-	x: number;
-	y: number;
+	point: Point;
 	size: string;
 	color: string;
 };
 
 export default function AstrologyText({
 	text,
-	x,
-	y,
+	point,
 	size,
 	color,
 }: AstrologyTextProps) {
+	const {
+		x,
+		y,
+	} = point;
 	return (
 		<text
 			x={x}

@@ -1,21 +1,20 @@
 import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import PlanetSymbol from "./PlanetSymbol";
 
-export default function UranusSymbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x - 5);
-	const yPosition = Math.round(y - 7);
-	const bodyX = xPosition + 7;
-	const bodyY = yPosition + 14.5;
+export default function UranusSymbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x - 5);
+	const y = Math.round(point.y - 7);
+	const bodyX = x + 7;
+	const bodyY = y + 14.5;
 
 	return (
 		<PlanetSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition},${yPosition}  0,10.23824
+				m ${x},${y}  0,10.23824
 				m 10.23633,-10.32764 0,10.23824
 				m -10.26606,-4.6394 10.23085,0
 				m -5.06415,-5.51532 0,11.94985

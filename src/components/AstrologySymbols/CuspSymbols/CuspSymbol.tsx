@@ -2,16 +2,14 @@ import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import AstrologySymbol from "../AstrologySymbol";
 
 export default function CuspSymbol({
-	x,
-	y,
+	point,
 	path,
 	hasSecondPath,
 	secondPath,
 }: AstrologySymbolProps) {
 	return (
 		<AstrologySymbol
-			x={x}
-			y={y}
+			point={point}
 			path={path}
 			strokeColor="#000"
 			strokeWidth="1"

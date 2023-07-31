@@ -1,19 +1,18 @@
 import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
-export default function GeminiSymbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x - 6);
-	const yPosition = Math.round(y - 6);
+export default function GeminiSymbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x - 6);
+	const y = Math.round(point.y - 6);
 
 	return (
 		<ZodiacSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition},${yPosition} 0,11.546414
+				m ${x},${y} 0,11.546414
 				m 0.9622011,-10.5842129 0,9.6220117
 				m 7.6976097,-9.6220117 0,9.6220117
 				m 0.962201,-10.5842128 0,11.546414

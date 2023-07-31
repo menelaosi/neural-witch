@@ -1,19 +1,18 @@
 import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
-export default function AquariusSymbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x - 8);
-	const yPosition = Math.round(y - 2);
+export default function AquariusSymbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x - 8);
+	const y = Math.round(point.y - 2);
 
 	return (
 		<ZodiacSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition},${yPosition} 2.8866035,-2.8866035 3.8488047,1.9244023
+				m ${x},${y} 2.8866035,-2.8866035 3.8488047,1.9244023
 				m -4.8110059,-0.9622011 3.8488047,1.9244023 2.8866035,-2.8866035 2.8866035,1.9244023
 				m -3.84880467,-0.9622011 2.88660347,1.9244023 2.8866035,-2.8866035 1.9244024,1.9244023
 				m -2.8866035,-0.9622011 1.9244023,1.9244023 2.8866035,-2.8866035

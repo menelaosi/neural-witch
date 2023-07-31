@@ -1,19 +1,18 @@
 import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import CuspSymbol from "./CuspSymbol";
 
-export default function House8Symbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x - 1);
-	const yPosition = Math.round(y - 5);
+export default function House8Symbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x - 1);
+	const y = Math.round(point.y - 5);
 
 	return (
 		<CuspSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition},${yPosition} -1.3631244,0.4543748 -0.4543748,0.4543748 -0.4543748,0.9087496 0,1.3631244 0.4543748,0.9087496 0.9087496,0.4543748 1.3631244,0 1.3631244,-0.4543748 0.9087496,-0.4543748 0.4543748,-0.9087496 0,-1.3631244 -0.4543748,-0.9087496 -0.9087496,-0.4543748 -1.8174992,0
+				m ${x},${y} -1.3631244,0.4543748 -0.4543748,0.4543748 -0.4543748,0.9087496 0,1.3631244 0.4543748,0.9087496 0.9087496,0.4543748 1.3631244,0 1.3631244,-0.4543748 0.9087496,-0.4543748 0.4543748,-0.9087496 0,-1.3631244 -0.4543748,-0.9087496 -0.9087496,-0.4543748 -1.8174992,0
 				m 0.9087496,0 -2.271874,0.4543748
 				m 0,0.4543748 -0.4543748,0.9087496 0,1.8174992 0.4543748,0.4543748
 				m -0.4543748,0 1.3631244,0.4543748

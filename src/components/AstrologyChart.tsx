@@ -1,5 +1,5 @@
 import { INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, PADDING, RULER_RADIUS, WHITE, radiansToDegree } from "@/lib/AstrologyUtils";
-import { PlanetSymbol } from "@/types/AstrologyTypes";
+import { PlanetSymbol, Point } from "@/types/AstrologyTypes";
 import { Horoscope } from "circular-natal-horoscope-js";
 import AstrologyAxis from "./AstrologyAxis";
 import AstrologyPlanets from "./AstrologyPlanets";
@@ -74,9 +74,13 @@ export default function AstrologyChart({
 	 * Symbols are used in Chart.calibrate() - unsure what calibration does yet
 	 * 
 	 * */
-	const cX = width / 2;
-	const cY = height / 2;
-	const radius = cY - MARGIN;
+	const x = width / 2;
+	const y = height / 2;
+	const point: Point = {
+		x,
+		y,
+	}
+	const radius = y - MARGIN;
 	const backgroundRadius = radius - (radius / INNER_CIRCLE_RADIUS_RATIO);
 	const thickness = radius / INDOOR_CIRCLE_RADIUS_RATIO;
 	let shift = 0;
@@ -97,8 +101,7 @@ export default function AstrologyChart({
 			<g id="aspects"></g>
 			<g id="radix">
 				<AstrologySegment
-					x={cX}
-					y={cY}
+					point={point}
 					radius={backgroundRadius}
 					angleFrom={0}
 					angleTo={359.99}
@@ -107,21 +110,18 @@ export default function AstrologyChart({
 					fill={WHITE}
 				/>
 				<AstrologyUniverse
-					x={cX}
-					y={cY}
+					point={point}
 					shift={shift}
 					radius={radius}
 				/>
 				<AstrologyRuler
-					x={cX}
-					y={cY}
+					point={point}
 					startRadius={startRadius}
 					endRadius={endRadius}
 					startAngle={shift}
 				/>
 				<AstrologyPlanets
-					x={cX}
-					y={cY}
+					point={point}
 					radius={radius}
 					planets={celestialBodyPositions}
 					rulerRadius={rulerRadius}
@@ -129,7 +129,10 @@ export default function AstrologyChart({
 					shift={shift}
 				/>
 				<AstrologyAxis
-
+					point={point}
+					radius={radius}
+					cuspPositions={cuspPositions}
+					shift={shift}
 				/>
 			</g>
 		</svg>

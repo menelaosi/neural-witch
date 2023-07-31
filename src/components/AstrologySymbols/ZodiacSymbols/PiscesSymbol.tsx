@@ -1,19 +1,18 @@
 import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
-export default function PiscesSymbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x - 8);
-	const yPosition = Math.round(y - 8);
+export default function PiscesSymbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x - 8);
+	const y = Math.round(point.y - 8);
 
 	return (
 		<ZodiacSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition},${yPosition} 4,2 2,2 1,3 0,3 -1,3 -2,2 -4,2
+				m ${x},${y} 4,2 2,2 1,3 0,3 -1,3 -2,2 -4,2
 				m 0,-17 3,1 2,1 2,2 1,3
 				m 0,3 -1,3 -2,2 -2,1 -3,1
 				m 16,-17 -3,1 -2,1 -2,2 -1,3

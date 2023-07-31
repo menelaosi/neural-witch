@@ -32,16 +32,15 @@ export function radiansToDegree(radians: number): number {
 }
 
 export function getPointPosition(
-	x: number,
-	y: number,
+	point: Point,
 	radius: number,
 	angle: number,
 ): Point {
 	const angleInRadians = convertShiftInDegrees(angle);
-	const xPosition = x + radius * Math.cos(angleInRadians);
-	const yPosition = y + radius * Math.sin(angleInRadians);
+	const x = point.x + radius * Math.cos(angleInRadians);
+	const y = point.y + radius * Math.sin(angleInRadians);
 	return {
-		x: xPosition,
-		y: yPosition,
+		x,
+		y,
 	};
 };

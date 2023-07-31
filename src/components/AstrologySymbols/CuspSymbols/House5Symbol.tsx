@@ -1,19 +1,18 @@
 import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import CuspSymbol from "./CuspSymbol";
 
-export default function House5Symbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x - 2);
-	const yPosition = Math.round(y - 5);
+export default function House5Symbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x - 2);
+	const y = Math.round(point.y - 5);
 
 	return (
 		<CuspSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition},${yPosition} -2.27272725,4.5454545
+				m ${x},${y} -2.27272725,4.5454545
 				m 2.27272725,-4.5454545 4.54545455,0
 				m -4.54545455,0.4545454 3.63636365,0
 				m -4.0909091,0.4545455 2.2727273,0 1.8181818,-0.4545455 0.9090909,-0.4545454

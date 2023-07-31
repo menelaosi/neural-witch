@@ -1,18 +1,17 @@
 import { CUSPS_STROKE, DARK_GRAY, getPointPosition } from "@/lib/AstrologyUtils";
+import { Point } from "@/types/AstrologyTypes";
 import AstrologyCircle from "./AstrologySymbols/AstrologyCircle";
 import AstrologyLine from "./AstrologySymbols/AstrologyLine";
 
 interface AstrologyRulerProps {
-	x: number;
-	y: number;
+	point: Point;
 	startRadius: number;
 	endRadius: number;
 	startAngle: number;
 };
 
 function getRulerPositions(
-	x: number,
-	y: number,
+	point: Point,
 	startRadius: number,
 	endRadius: number,
 	startAngle: number,
@@ -26,9 +25,8 @@ function getRulerPositions(
 	const resultArray = [];
 	for (let i = 0, start = 0, step = 5; i < 72; i++) {
 		const angle = start + startAngle;
-		const startPosition = getPointPosition(
-			x,
-			y,
+		const startingPoint = getPointPosition(
+			point,
 			startRadius,
 			angle,
 		);
@@ -37,18 +35,16 @@ function getRulerPositions(
 			? rayRadius
 			: halfRayRadius;
 			
-		const endPosition = getPointPosition(
-			x,
-			y,
+		const endingPoint = getPointPosition(
+			point,
 			endPositionStartRadius,
 			angle,
 		);
+		
 		resultArray.push(
 			<AstrologyLine
-				x1={startPosition.x}
-				y1={startPosition.y}
-				x2={endPosition.x}
-				y2={endPosition.y}
+				startingPoint={startingPoint}
+				endingPoint={endingPoint}
 				stroke={DARK_GRAY}
 				strokeWidth={CUSPS_STROKE}
 				key={i}
@@ -61,15 +57,13 @@ function getRulerPositions(
 }
 
 export default function AstrologyRuler({
-	x,
-	y,
+	point,
 	startRadius,
 	endRadius,
 	startAngle,
 }: AstrologyRulerProps) {
 	const rulerPositions = getRulerPositions(
-		x,
-		y,
+		point,
 		startRadius,
 		endRadius,
 		startAngle,
@@ -78,8 +72,7 @@ export default function AstrologyRuler({
 		<g>
 			{rulerPositions}
 			<AstrologyCircle
-				centerX={x}
-				centerY={y}
+				point={point}
 				radius={startRadius}
 				stroke={DARK_GRAY}
 				strokeWidth={CUSPS_STROKE}

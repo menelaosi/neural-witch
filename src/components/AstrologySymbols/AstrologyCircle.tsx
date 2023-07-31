@@ -1,24 +1,28 @@
+import { Point } from "@/types/AstrologyTypes";
+
 interface CircleProps {
-	centerX: number;
-	centerY: number;
+	point: Point;
 	radius: number;
 	stroke: string;
 	strokeWidth: number;
 	fill?: string;
 }
 export default function AstrologyCircle({
-	centerX,
-	centerY,
+	point,
 	radius,
 	stroke,
 	strokeWidth,
 	fill = "none",
 }: CircleProps) {
+	const {
+		x,
+		y,
+	} = point;
 	const circleRadius = radius / 8;
 	return (
 		<circle
-			cx={centerX}
-			cy={centerY}
+			cx={x}
+			cy={y}
 			radius={circleRadius}
 			stroke={stroke}
 			strokeWidth={strokeWidth}

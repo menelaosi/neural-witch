@@ -1,20 +1,19 @@
+import { BLACK, POINTS_STROKE } from "@/lib/AstrologyUtils";
 import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import AstrologySymbol from "../AstrologySymbol";
 
 export default function PlanetSymbol({
-	x,
-	y,
+	point,
 	path,
 	hasSecondPath,
 	secondPath,
 }: AstrologySymbolProps) {
 	return (
 		<AstrologySymbol
-			x={x}
-			y={y}
+			point={point}
 			path={path}
-			strokeColor="#000000"
-			strokeWidth="1.8"
+			strokeColor={BLACK}
+			strokeWidth={POINTS_STROKE.toString()}
 			hasSecondPath={hasSecondPath}
 			secondPath={secondPath}
 		/>

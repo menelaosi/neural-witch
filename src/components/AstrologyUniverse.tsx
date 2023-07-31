@@ -1,5 +1,5 @@
 import { DARK_GRAY, INNER_CIRCLE_RADIUS_RATIO, getPointPosition } from "@/lib/AstrologyUtils";
-import { SignSymbol } from "@/types/AstrologyTypes";
+import { Point, SignSymbol } from "@/types/AstrologyTypes";
 import { ReactElement } from "react";
 import AstrologySegment from "./AstrologySymbols/AstrologySegment";
 import AquariusSymbol from "./AstrologySymbols/ZodiacSymbols/AquariusSymbol";
@@ -16,15 +16,13 @@ import TaurusSymbol from "./AstrologySymbols/ZodiacSymbols/TaurusSymbol";
 import VirgoSymbol from "./AstrologySymbols/ZodiacSymbols/VirgoSymbol";
 
 interface AstrologyUniverseProps {
-	x: number;
-	y: number;
+	point: Point;
 	shift: number;
 	radius: number;
 }
 
 function getSegments(
-	x: number,
-	y: number,
+	point: Point,
 	shift: number,
 	radius: number,
 ) {
@@ -35,8 +33,7 @@ function getSegments(
 		const thickness = radius - (radius / INNER_CIRCLE_RADIUS_RATIO);
 		segments.push(
 			<AstrologySegment
-				x={x}
-				y={y}
+				point={point}
 				radius={radius}
 				angleFrom={start}
 				angleTo={angleTo}
@@ -68,23 +65,20 @@ const signSymbols = {
 
 function getSignSymbol(
 	sign: SignSymbol,
-	x: number,
-	y: number,
+	point: Point,
 	key: number,
 ) {
 	const SymbolComponent = signSymbols[sign];
 	return (
 		<SymbolComponent
-			x={x}
-			y={y}
+			point={point}
 			key={key}
 		/>
 	);
 };
 
 function getSigns(
-	x: number,
-	y: number,
+	point: Point,
 	shift: number,
 	radius: number,
 ) {
@@ -94,33 +88,29 @@ function getSigns(
 	const signSymbols: ReactElement[] = []
 	for (let i = 0; i < signList.length; i++) {
 		const pointRadius = radius - radius / 16;
-		const point = getPointPosition(
-			x,
-			y,
+		const pointPosition = getPointPosition(
+			point,
 			pointRadius,
 			start,
 		);
-		signSymbols.push(getSignSymbol(signList[i], point.x, point.y, i));
+		signSymbols.push(getSignSymbol(signList[i], pointPosition, i));
 		start += step;
 	}
 	return signSymbols;
 }
 
 export default function AstrologyUniverse({
-	x,
-	y,
+	point,
 	shift,
 	radius,
 }: AstrologyUniverseProps) {
 	const segments = getSegments(
-		x,
-		y,
+		point,
 		shift,
 		radius,
 	);
 	const signs = getSigns(
-		x,
-		y,
+		point,
 		shift,
 		radius,
 	);

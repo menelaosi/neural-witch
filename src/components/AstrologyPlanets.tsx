@@ -1,5 +1,5 @@
 import { INNER_CIRCLE_RADIUS_RATIO, getPointPosition } from "@/lib/AstrologyUtils";
-import { PlanetSymbol } from "@/types/AstrologyTypes";
+import { PlanetSymbol, Point } from "@/types/AstrologyTypes";
 import ChironSymbol from "./AstrologySymbols/PlanetSymbols/ChironSymbol";
 import JupiterSymbol from "./AstrologySymbols/PlanetSymbols/JupiterSymbol";
 import LilithSymbol from "./AstrologySymbols/PlanetSymbols/LilithSymbol";
@@ -15,8 +15,7 @@ import UranusSymbol from "./AstrologySymbols/PlanetSymbols/UranusSymbol";
 import VenusSymbol from "./AstrologySymbols/PlanetSymbols/VenusSymbol";
 
 interface AstrologyPlanetsProps {
-	x: number;
-	y: number;
+	point: Point;
 	radius: number;
 	planets: Record<PlanetSymbol, number | undefined>;
 	rulerRadius: number;
@@ -25,8 +24,7 @@ interface AstrologyPlanetsProps {
 }
 
 function getPlanets(
-	x:number,
-	y:number,
+	point: Point,
 	planets: Record<PlanetSymbol, number | undefined>,
 	pointPositionRadius: number,
 	shift: number,
@@ -37,14 +35,12 @@ function getPlanets(
 		if (planetPoint) {
 			const planetShift = planetPoint + shift;
 			const planetPosition = getPointPosition(
-				x,
-				y,
+				point,
 				pointPositionRadius,
 				planetShift,
 			);
 			const startPosition = getPointPosition(
-				x,
-				y,
+				point,
 				pointPositionRadius,
 				planetShift,
 			);
@@ -73,15 +69,13 @@ const planetSymbols = {
 
 function getPlanetSymbol(
 	planet: PlanetSymbol,
-	x: number,
-	y: number,
+	point: Point,
 	key: number,
 ) {
 	const PlanetComponent = planetSymbols[planet];
 	return (
 		<PlanetComponent
-			x={x}
-			y={y}
+			point={point}
 			key={key}
 		/>
 	);
@@ -89,8 +83,7 @@ function getPlanetSymbol(
 
 
 export default function AstrologyPlanets({
-	x,
-	y,
+	point,
 	radius,
 	planets,
 	rulerRadius,

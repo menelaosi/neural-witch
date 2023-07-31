@@ -1,20 +1,26 @@
+import { Point } from "@/types/AstrologyTypes";
+
 interface AstrologyLineProps {
-	x1: number;
-	y1: number;
-	x2: number;
-	y2: number;
+	startingPoint: Point;
+	endingPoint: Point;
 	stroke?: string;
 	strokeWidth?: number;
 };
 
 export default function AstrologyLine({
-	x1,
-	x2,
-	y1,
-	y2,
+	startingPoint,
+	endingPoint,
 	stroke,
 	strokeWidth,
 }: AstrologyLineProps) {
+	const {
+		x: x1,
+		y: y1,
+	} = startingPoint;
+	const {
+		x: x2,
+		y: y2,
+	} = endingPoint;
 	return (
 		<line
 			x1={x1}

@@ -1,19 +1,18 @@
 import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
-export default function SagittariusSymbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x + 7);
-	const yPosition = Math.round(y - 9);
+export default function SagittariusSymbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x + 7);
+	const y = Math.round(point.y - 9);
 
 	return (
 		<ZodiacSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition}, ${yPosition} -17.11444,17.11444
+				m ${x}, ${y} -17.11444,17.11444
 				m 17.11444,-17.11444 -3.2089575,1.0696525 -6.417915,0
 				m 7.4875675,1.0696525 -3.2089575,0 -4.27861,-1.0696525
 				m 9.6268725,-1.0696525 -1.0696525,3.2089575 0,6.41791504

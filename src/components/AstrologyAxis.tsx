@@ -3,23 +3,20 @@ import { Point } from "@/types/AstrologyTypes";
 import AstrologyLine from "./AstrologySymbols/AstrologyLine";
 
 interface AstrologyAxisProps {
-	x: number;
-	y: number;
+	point: Point;
 	radius: number;
-	cusps: [];
+	cuspPositions: number[];
 	shift: number;
 }
 
 function getAxisElement(
-	startPosition: Point,
-	endPosition: Point,
+	startingPoint: Point,
+	endingPoint: Point,
 ) {
 	return (
 		<AstrologyLine
-			x1={startPosition.x}
-			y1={startPosition.y}
-			x2={endPosition.x}
-			y2={endPosition.y}
+			startingPoint={startingPoint}
+			endingPoint={endingPoint}
 			stroke={DARK_GRAY}
 			strokeWidth={SYMBOL_AXIS_STROKE}
 		/>
@@ -28,24 +25,21 @@ function getAxisElement(
 }
 
 export default function AstrologyAxis({
-	x,
-	y,
+	point,
 	radius,
-	cusps,
+	cuspPositions,
 	shift,
 }: AstrologyAxisProps) {
 	const axisRadius = radius + radius / INNER_CIRCLE_RADIUS_RATIO / 4;
-	for (let i = 0; i < cusps.length; i++) {
-		const shiftPosition = cusps[i] + shift;
+	for (let i = 0; i < cuspPositions.length; i++) {
+		const shiftPosition = cuspPositions[i] + shift;
 		const startPosition = getPointPosition(
-			x,
-			y,
+			point,
 			radius,
 			shiftPosition,
 		);
 		const endPosition = getPointPosition(
-			x,
-			y,
+			point,
 			axisRadius,
 			shiftPosition,
 		);

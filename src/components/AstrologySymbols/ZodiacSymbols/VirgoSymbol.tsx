@@ -1,19 +1,18 @@
 import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
-export default function VirgoSymbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x - 9);
-	const yPosition = Math.round(y - 5);
+export default function VirgoSymbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x - 9);
+	const y = Math.round(point.y - 5);
 
 	return (
 		<ZodiacSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition},${yPosition} 2.5894868,-2.5894868 1.7263245,2.5894868 0,9.4947847
+				m ${x},${y} 2.5894868,-2.5894868 1.7263245,2.5894868 0,9.4947847
 				m -2.5894868,-11.2211092 1.7263245,2.5894867 0,8.6316225
 				m 0.8631623,-9.4947847 2.5894867,-2.5894868 1.72632451,2.5894868 0,8.6316224
 				m -2.58948671,-10.3579469 1.72632447,2.5894867 0,7.7684602

@@ -1,19 +1,18 @@
 import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
 import ZodiacSymbol from "./ZodiacSymbol";
 
-export default function ScorpioSymbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x - 9);
-	const yPosition = Math.round(y - 4);
+export default function ScorpioSymbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x - 9);
+	const y = Math.round(point.y - 4);
 
 	return (
 		<ZodiacSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition},${yPosition} 2.3781101,-2.3781101 2.3781101,2.3781101 0,9.5124404
+				m ${x},${y} 2.3781101,-2.3781101 2.3781101,2.3781101 0,9.5124404
 				m -3.1708135,-11.0978471 2.3781101,2.3781101 0,8.719737
 				m 0.7927034,-9.5124404 2.3781101,-2.3781101 2.37811007,2.3781101 0,9.5124404
 				m -3.17081347,-11.0978471 2.3781101,2.3781101 0,8.719737

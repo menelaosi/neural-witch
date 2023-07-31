@@ -1,19 +1,18 @@
 import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import CuspSymbol from "./CuspSymbol";
 
-export default function House7Symbol({
-	x,
-	y,
-}: AstrologySymbolProps) {
-	const xPosition = Math.round(x - 4);
-	const yPosition = Math.round(y - 4);
+export default function House7Symbol({ point }: AstrologySymbolProps) {
+	const x = Math.round(point.x - 4);
+	const y = Math.round(point.y - 4);
 
 	return (
 		<CuspSymbol
-			x={xPosition}
-			y={yPosition}
+			point={{
+				x,
+				y,
+			}}
 			path={`
-				m ${xPosition},${yPosition} -0.9090909,2.7272727
+				m ${x},${y} -0.9090909,2.7272727
 				m 6.8181818,-2.7272727 -0.4545454,1.3636363 -0.909091,1.3636364 -1.8181818,2.2727273 -0.90909088,1.36363633 -0.45454546,1.36363637 -0.45454545,1.8181818
 				m 0.90909091,-3.63636362 -0.90909091,1.81818182 -0.45454546,1.8181818
 				m 4.09090905,-6.8181818 -2.72727268,2.72727272 -0.90909091,1.36363637 -0.45454546,0.90909091 -0.45454545,1.8181818 0.90909091,0

@@ -2,14 +2,12 @@ import { AstrologySymbolProps } from "@/types/AstrologyTypes";
 import AstrologySymbol from "../AstrologySymbol";
 
 export default function AxisSymbol({
-	x,
-	y,
+	point,
 	path,
 }: AstrologySymbolProps) {
 	return (
 		<AstrologySymbol
-			x={x}
-			y={y}
+			point={point}
 			path={path}
 			strokeColor="#333"
 			strokeWidth="1.6"
