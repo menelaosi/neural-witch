@@ -1,7 +1,8 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import PlanetSymbol from "./PlanetSymbol";
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import PlanetSymbol from './PlanetSymbol';
 
-export default function JupiterSymbol({ point }: AstrologySymbolProps) {
+const JupiterSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x - 5);
 	const y = Math.round(point.y - 2);
 
@@ -19,3 +20,5 @@ export default function JupiterSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default JupiterSymbol;

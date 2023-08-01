@@ -1,7 +1,8 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import PlanetSymbol from "./PlanetSymbol";
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import PlanetSymbol from './PlanetSymbol';
 
-export default function VenusSymbol({ point }: AstrologySymbolProps) {
+const VenusSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x + 2);
 	const y = Math.round(point.y + 7);
 
@@ -19,3 +20,5 @@ export default function VenusSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default VenusSymbol;

@@ -1,16 +1,18 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import AstrologySymbol from "../AstrologySymbol";
+import { DARK_GRAY, SYMBOL_AXIS_STROKE } from '@/lib/AstrologyUtils';
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import AstrologySymbol from '../AstrologySymbol';
 
-export default function AxisSymbol({
+const AxisSymbol: React.FC<AstrologySymbolProps> = ({
 	point,
 	path,
-}: AstrologySymbolProps) {
-	return (
-		<AstrologySymbol
-			point={point}
-			path={path}
-			strokeColor="#333"
-			strokeWidth="1.6"
-		/>
-	);
-};
+}) => (
+	<AstrologySymbol
+		point={point}
+		path={path}
+		strokeColor={DARK_GRAY}
+		strokeWidth={SYMBOL_AXIS_STROKE}
+	/>
+);
+
+export default AxisSymbol;

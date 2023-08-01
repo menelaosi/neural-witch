@@ -1,7 +1,8 @@
-import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
-import ZodiacSymbol from "./ZodiacSymbol";
+import { AstrologySymbolProps, ColorSigns } from '@/types/AstrologyTypes';
+import React from 'react';
+import ZodiacSymbol from './ZodiacSymbol';
 
-export default function LeoSymbol({ point }: AstrologySymbolProps) {
+const LeoSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x - 3);
 	const y = Math.round(point.y + 4);
 
@@ -20,3 +21,5 @@ export default function LeoSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default LeoSymbol;

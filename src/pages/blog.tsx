@@ -1,5 +1,6 @@
-import Navigation from "@/components/Navigation";
+import Navigation from '@/components/Navigation';
+import React from 'react';
 
-export default function Blog() {
-	return <Navigation/>
-};
+const Blog: React.FC = () => <Navigation />;
+
+export default Blog;

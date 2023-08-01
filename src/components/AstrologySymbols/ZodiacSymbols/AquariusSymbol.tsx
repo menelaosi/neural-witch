@@ -1,7 +1,8 @@
-import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
-import ZodiacSymbol from "./ZodiacSymbol";
+import { AstrologySymbolProps, ColorSigns } from '@/types/AstrologyTypes';
+import React from 'react';
+import ZodiacSymbol from './ZodiacSymbol';
 
-export default function AquariusSymbol({ point }: AstrologySymbolProps) {
+const AquariusSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x - 8);
 	const y = Math.round(point.y - 2);
 
@@ -25,3 +26,5 @@ export default function AquariusSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default AquariusSymbol;

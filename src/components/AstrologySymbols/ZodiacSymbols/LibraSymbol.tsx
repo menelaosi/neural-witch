@@ -1,7 +1,8 @@
-import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
-import ZodiacSymbol from "./ZodiacSymbol";
+import { AstrologySymbolProps, ColorSigns } from '@/types/AstrologyTypes';
+import React from 'react';
+import ZodiacSymbol from './ZodiacSymbol';
 
-export default function LibraSymbol({ point }: AstrologySymbolProps) {
+const LibraSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x - 2);
 	const y = Math.round(point.y - 8);
 
@@ -42,3 +43,5 @@ export default function LibraSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default LibraSymbol;

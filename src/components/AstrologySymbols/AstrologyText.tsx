@@ -1,18 +1,19 @@
-import { Point } from "@/types/AstrologyTypes";
+import { Point } from '@/types/AstrologyTypes';
+import React from 'react';
 
 interface AstrologyTextProps {
-	text: string;
-	point: Point;
-	size: string;
-	color: string;
-};
+	readonly text: string;
+	readonly point: Point;
+	readonly size: string;
+	readonly color: string;
+}
 
-export default function AstrologyText({
+const AstrologyText: React.FC<AstrologyTextProps> = ({
 	text,
 	point,
 	size,
 	color,
-}: AstrologyTextProps) {
+}) => {
 	const {
 		x,
 		y,
@@ -23,10 +24,12 @@ export default function AstrologyText({
 			y={y}
 			fontSize={size}
 			fill={color}
-			fontFamily="serif"
-			dominantBaseline="central"
+			fontFamily='serif'
+			dominantBaseline='central'
 		>
 			{text}
 		</text>
-	)
-}
+	);
+};
+
+export default AstrologyText;

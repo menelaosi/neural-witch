@@ -1,7 +1,8 @@
-import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
-import ZodiacSymbol from "./ZodiacSymbol";
+import { AstrologySymbolProps, ColorSigns } from '@/types/AstrologyTypes';
+import React from 'react';
+import ZodiacSymbol from './ZodiacSymbol';
 
-export default function SagittariusSymbol({ point }: AstrologySymbolProps) {
+const SagittariusSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x + 7);
 	const y = Math.round(point.y - 9);
 
@@ -26,3 +27,5 @@ export default function SagittariusSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default SagittariusSymbol;

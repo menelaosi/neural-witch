@@ -1,19 +1,20 @@
-import { Point } from "@/types/AstrologyTypes";
+import { Point } from '@/types/AstrologyTypes';
+import React from 'react';
 
 interface CircleProps {
-	point: Point;
-	radius: number;
-	stroke: string;
-	strokeWidth: number;
-	fill?: string;
+	readonly point: Point;
+	readonly radius: number;
+	readonly stroke: string;
+	readonly strokeWidth: number;
+	readonly fill?: string;
 }
-export default function AstrologyCircle({
+const AstrologyCircle: React.FC<CircleProps> = ({
 	point,
 	radius,
 	stroke,
 	strokeWidth,
-	fill = "none",
-}: CircleProps) {
+	fill = 'none',
+}) => {
 	const {
 		x,
 		y,
@@ -30,3 +31,5 @@ export default function AstrologyCircle({
 		/>
 	);
 };
+
+export default AstrologyCircle;

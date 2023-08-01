@@ -1,7 +1,8 @@
-import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
-import ZodiacSymbol from "./ZodiacSymbol";
+import { AstrologySymbolProps, ColorSigns } from '@/types/AstrologyTypes';
+import React from 'react';
+import ZodiacSymbol from './ZodiacSymbol';
 
-export default function GeminiSymbol({ point }: AstrologySymbolProps) {
+const GeminiSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x - 6);
 	const y = Math.round(point.y - 6);
 
@@ -23,3 +24,5 @@ export default function GeminiSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default GeminiSymbol;

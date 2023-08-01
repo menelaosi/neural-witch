@@ -1,25 +1,26 @@
-import { convertShiftInDegrees } from "@/lib/AstrologyUtils";
-import { Point } from "@/types/AstrologyTypes";
+import { convertShiftInDegrees } from '@/lib/AstrologyUtils';
+import { Point } from '@/types/AstrologyTypes';
+import React from 'react';
 
 interface AstrologySegmentProps {
-	point: Point;
-	radius: number;
-	angleFrom: number;
-	angleTo: number;
-	thickness: number;
-	lFlag?: number;
-	sFlag?: number;
-	fill?: string;
-	stroke?: string;
-	strokeWidth?: number;
-};
+	readonly point: Point;
+	readonly radius: number;
+	readonly angleFrom: number;
+	readonly angleTo: number;
+	readonly thickness: number;
+	readonly lFlag?: number;
+	readonly sFlag?: number;
+	readonly fill?: string;
+	readonly stroke?: string;
+	readonly strokeWidth?: number;
+}
 
 /**
  * Creates a segment SVG
  * @param AstrologySegmentProps
  * @returns the segment in SVG
  */
-export default function AstrologySegment({
+const AstrologySegment: React.FC<AstrologySegmentProps> = ({
 	point,
 	radius,
 	angleFrom,
@@ -29,8 +30,8 @@ export default function AstrologySegment({
 	sFlag = 0,
 	stroke,
 	strokeWidth,
-	fill = "none",
-}: AstrologySegmentProps) {
+	fill = 'none',
+}) => {
 	// Some constants for angles in degress and radius minus thickness
 	const angleFromShift = convertShiftInDegrees(angleFrom);
 	const angleToShift = convertShiftInDegrees(angleTo);
@@ -45,22 +46,22 @@ export default function AstrologySegment({
 	// Define the points for the SVG
 
 	const point1 = {
-		x: point.x + thickness * cosineAngleFromShift,
-		y: point.y + thickness * sineAngleFromShift,
+		x: point.x + (thickness * cosineAngleFromShift),
+		y: point.y + (thickness * sineAngleFromShift),
 	};
-	
+
 	const point2 = {
 		x: radiusMinusThickness * cosineAngleFromShift,
 		y: radiusMinusThickness * sineAngleFromShift,
 	};
 
 	const point3 = {
-		x: point.x + radius * cosineAngleToShift,
-		y: point.y + radius * sineAngleToShift,
+		x: point.x + (radius * cosineAngleToShift),
+		y: point.y + (radius * sineAngleToShift),
 	};
 
 	const point4 = {
-		x: radiusMinusThickness * -cosineAngleFromShift,
+		x: radiusMinusThickness * -cosineAngleToShift,
 		y: radiusMinusThickness * -sineAngleToShift,
 	};
 
@@ -80,3 +81,5 @@ export default function AstrologySegment({
 		/>
 	);
 };
+
+export default AstrologySegment;

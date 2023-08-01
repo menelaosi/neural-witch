@@ -1,7 +1,8 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import AxisSymbol from "./AxisSymbol";
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import AxisSymbol from './AxisSymbol';
 
-export default function ImmumCoeliSymbol({ point }: AstrologySymbolProps) {
+const ImmumCoeliSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x + 19);
 	const y = Math.round(point.y + 2);
 	return (
@@ -17,3 +18,5 @@ export default function ImmumCoeliSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default ImmumCoeliSymbol;

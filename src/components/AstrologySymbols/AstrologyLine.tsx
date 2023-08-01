@@ -1,18 +1,19 @@
-import { Point } from "@/types/AstrologyTypes";
+import { Point } from '@/types/AstrologyTypes';
+import React from 'react';
 
 interface AstrologyLineProps {
-	startingPoint: Point;
-	endingPoint: Point;
-	stroke?: string;
-	strokeWidth?: number;
-};
+	readonly startingPoint: Point;
+	readonly endingPoint: Point;
+	readonly stroke?: string;
+	readonly strokeWidth?: number;
+}
 
-export default function AstrologyLine({
+const AstrologyLine: React.FC<AstrologyLineProps> = ({
 	startingPoint,
 	endingPoint,
 	stroke,
 	strokeWidth,
-}: AstrologyLineProps) {
+}) => {
 	const {
 		x: x1,
 		y: y1,
@@ -32,3 +33,5 @@ export default function AstrologyLine({
 		/>
 	);
 };
+
+export default AstrologyLine;

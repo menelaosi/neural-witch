@@ -1,14 +1,15 @@
-import { CUSPS_STROKE, DARK_GRAY, getPointPosition } from "@/lib/AstrologyUtils";
-import { Point } from "@/types/AstrologyTypes";
-import AstrologyCircle from "./AstrologySymbols/AstrologyCircle";
-import AstrologyLine from "./AstrologySymbols/AstrologyLine";
+import { CUSPS_STROKE, DARK_GRAY, getPointPosition } from '@/lib/AstrologyUtils';
+import { Point } from '@/types/AstrologyTypes';
+import React from 'react';
+import AstrologyCircle from './AstrologySymbols/AstrologyCircle';
+import AstrologyLine from './AstrologySymbols/AstrologyLine';
 
 interface AstrologyRulerProps {
-	point: Point;
-	startRadius: number;
-	endRadius: number;
-	startAngle: number;
-};
+	readonly point: Point;
+	readonly startRadius: number;
+	readonly endRadius: number;
+	readonly startAngle: number;
+}
 
 function getRulerPositions(
 	point: Point,
@@ -16,10 +17,10 @@ function getRulerPositions(
 	endRadius: number,
 	startAngle: number,
 ) {
-	let rayRadius = endRadius;
+	const rayRadius = endRadius;
 	const radiusRatio = Math.abs((endRadius - startRadius) / 2);
 
-	let halfRayRadius = (startRadius <= endRadius)
+	const halfRayRadius = (startRadius <= endRadius)
 		? rayRadius - radiusRatio
 		: rayRadius + radiusRatio;
 	const resultArray = [];
@@ -34,34 +35,35 @@ function getRulerPositions(
 		const endPositionStartRadius = (i % 2 === 0)
 			? rayRadius
 			: halfRayRadius;
-			
+
 		const endingPoint = getPointPosition(
 			point,
 			endPositionStartRadius,
 			angle,
 		);
-		
+
 		resultArray.push(
 			<AstrologyLine
+				key={i}
 				startingPoint={startingPoint}
 				endingPoint={endingPoint}
 				stroke={DARK_GRAY}
 				strokeWidth={CUSPS_STROKE}
-				key={i}
-			/>
+			/>,
 		);
-		
+
 		start += step;
 	}
+
 	return resultArray;
 }
 
-export default function AstrologyRuler({
+const AstrologyRuler: React.FC<AstrologyRulerProps> = ({
 	point,
 	startRadius,
 	endRadius,
 	startAngle,
-}: AstrologyRulerProps) {
+}) => {
 	const rulerPositions = getRulerPositions(
 		point,
 		startRadius,
@@ -79,4 +81,6 @@ export default function AstrologyRuler({
 			/>
 		</g>
 	);
-}
+};
+
+export default AstrologyRuler;

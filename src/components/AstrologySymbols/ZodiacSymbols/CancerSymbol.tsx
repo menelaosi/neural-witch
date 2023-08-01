@@ -1,11 +1,12 @@
-import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
-import ZodiacSymbol from "./ZodiacSymbol";
+import { AstrologySymbolProps, ColorSigns } from '@/types/AstrologyTypes';
+import React from 'react';
+import ZodiacSymbol from './ZodiacSymbol';
 
-export default function CancerSymbol({ point }: AstrologySymbolProps) {
+const CancerSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x + 9);
 	const y = Math.round(point.y - 9);
 
-	return(
+	return (
 		<ZodiacSymbol
 			point={{
 				x,
@@ -23,3 +24,5 @@ export default function CancerSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default CancerSymbol;

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import React from 'react';
 import tarot from '../../public/tarot.json';
 
 /**
@@ -19,18 +20,18 @@ interface TarotCard {
  * @returns {TarotCard[]} returns the tarot cards after shuffling them
  */
 function loadCards(): TarotCard[] {
-    const tarotCards: TarotCard[] = tarot.tarot_interpretations.map((card): TarotCard => 
+	const tarotCards: TarotCard[] = tarot.tarot_interpretations.map((card): TarotCard =>
 		({
 			name: card.name,
 			rank: card.rank.toString(),
 			suit: card.suit,
-			image: "/tarot/" + card.name.replace(/\s/g, "") + '.png',
+			image: '/tarot/' + card.name.replace(/\s/g, '') + '.png',
 			fortuneTelling: card.fortune_telling,
 			keywords: card.keywords,
 			meanings: card.meanings.light.concat(card.meanings.shadow),
-		})
+		}),
 	);
-    return shuffleDeck(tarotCards);
+	return shuffleDeck(tarotCards);
 }
 
 /**
@@ -39,30 +40,31 @@ function loadCards(): TarotCard[] {
  * @returns {TarotCard[]} a shuffled array of Tarot Cards
  */
 function shuffleDeck(tarotCards: TarotCard[]): TarotCard[] {
-    let currentIndex = tarotCards.length;
-    let randomIndex = 0;
-    while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        [tarotCards[currentIndex], tarotCards[randomIndex]] = [
-            tarotCards[randomIndex],tarotCards[currentIndex]
-        ];
-    }
-    return tarotCards;
+	let currentIndex = tarotCards.length;
+	let randomIndex = 0;
+	while (currentIndex !== 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+		[tarotCards[currentIndex], tarotCards[randomIndex]] = [
+			tarotCards[randomIndex], tarotCards[currentIndex],
+		];
+	}
+
+	return tarotCards;
 }
 
 /**
  * Shows a shuffled set of cards for now.
  * @returns {JSX.Element} with an image for each card in the deck currently
  */
-export default function CardComponent() {
+const CardComponent: React.FC = () => {
 	const tarotDeck = loadCards();
 	return (
 		<div>
 			{tarotDeck.map((card: TarotCard) => (
 				<div key={card.name}>
-					<Image 
-						src={ card.image } 
+					<Image
+						src={card.image}
 						height={500}
 						width={240}
 						alt={card.name}
@@ -73,3 +75,4 @@ export default function CardComponent() {
 	);
 };
 
+export default CardComponent;

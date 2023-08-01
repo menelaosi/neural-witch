@@ -1,14 +1,15 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import CuspSymbol from "./CuspSymbol";
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import CuspSymbol from './CuspSymbol';
 
-export default function House2Symbol({ point }: AstrologySymbolProps) {
+const House2Symbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x - 2);
 	const y = Math.round(point.y - 3);
 	return (
 		<CuspSymbol
 			point={{
-				x,
 				y,
+				x,
 			}}
 			path={`
 				m ${x},${y} 0,-0.4545454 0.4545454,0 0,0.9090909 -0.9090909,0 0,-0.9090909 0.4545455,-0.9090909 0.4545454,-0.4545455 1.36363637,-0.4545454 1.36363633,0 1.3636364,0.4545454 0.4545455,0.9090909 0,0.9090909 -0.4545455,0.909091 -0.9090909,0.9090909 -4.5454546,2.72727269 -0.9090909,0.90909091 -0.9090909,1.8181818 
@@ -21,3 +22,5 @@ export default function House2Symbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default House2Symbol;

@@ -1,7 +1,8 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import CuspSymbol from "./CuspSymbol";
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import CuspSymbol from './CuspSymbol';
 
-export default function House6Symbol({ point }: AstrologySymbolProps) {
+const House6Symbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x + 3);
 	const y = Math.round(point.y - 3);
 
@@ -21,3 +22,5 @@ export default function House6Symbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default House6Symbol;

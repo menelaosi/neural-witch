@@ -1,7 +1,8 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import PlanetSymbol from "./PlanetSymbol";
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import PlanetSymbol from './PlanetSymbol';
 
-export default function NeptuneSymbol({ point }: AstrologySymbolProps) {
+const NeptuneSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x + 3);
 	const y = Math.round(point.y - 5);
 
@@ -23,3 +24,5 @@ export default function NeptuneSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default NeptuneSymbol;

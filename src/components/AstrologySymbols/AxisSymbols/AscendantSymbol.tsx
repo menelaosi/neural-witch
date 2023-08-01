@@ -1,7 +1,8 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import AxisSymbol from "./AxisSymbol";
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import AxisSymbol from './AxisSymbol';
 
-export default function AscendantSymbol({ point }: AstrologySymbolProps) {
+const AscendantSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x + 12);
 	const y = Math.round(point.y - 2);
 	return (
@@ -19,3 +20,5 @@ export default function AscendantSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default AscendantSymbol;

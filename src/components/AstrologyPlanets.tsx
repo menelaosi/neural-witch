@@ -1,56 +1,21 @@
-import { INNER_CIRCLE_RADIUS_RATIO, getPointPosition } from "@/lib/AstrologyUtils";
-import { PlanetSymbol, Point } from "@/types/AstrologyTypes";
-import ChironSymbol from "./AstrologySymbols/PlanetSymbols/ChironSymbol";
-import JupiterSymbol from "./AstrologySymbols/PlanetSymbols/JupiterSymbol";
-import LilithSymbol from "./AstrologySymbols/PlanetSymbols/LilithSymbol";
-import MarsSymbol from "./AstrologySymbols/PlanetSymbols/MarsSymbol";
-import MercurySymbol from "./AstrologySymbols/PlanetSymbols/MercurySymbol";
-import MoonSymbol from "./AstrologySymbols/PlanetSymbols/MoonSymbol";
-import NeptuneSymbol from "./AstrologySymbols/PlanetSymbols/NeptuneSymbol";
-import NorthNodeSymbol from "./AstrologySymbols/PlanetSymbols/NorthNodeSymbol";
-import PlutoSymbol from "./AstrologySymbols/PlanetSymbols/PlutoSymbol";
-import SaturnSymbol from "./AstrologySymbols/PlanetSymbols/SaturnSymbol";
-import SunSymbol from "./AstrologySymbols/PlanetSymbols/SunSymbol";
-import UranusSymbol from "./AstrologySymbols/PlanetSymbols/UranusSymbol";
-import VenusSymbol from "./AstrologySymbols/PlanetSymbols/VenusSymbol";
+import { PlanetSymbol, Point } from '@/types/AstrologyTypes';
+import React from 'react';
 
 interface AstrologyPlanetsProps {
-	point: Point;
-	radius: number;
-	planets: Record<PlanetSymbol, number | undefined>;
-	rulerRadius: number;
-	pointRadius: number;
-	shift: number;
+	readonly point: Point;
+	readonly radius: number;
+	readonly planets: Record<PlanetSymbol, number | undefined>;
+	readonly rulerRadius: number;
+	readonly shift: number;
 }
-
+/* Add in getPlanets later
 function getPlanets(
 	point: Point,
 	planets: Record<PlanetSymbol, number | undefined>,
 	pointPositionRadius: number,
 	shift: number,
-) {
-	const planetPointList = [];
-	for (let planet in planets) {
-		const planetPoint = planets[planet as PlanetSymbol];
-		if (planetPoint) {
-			const planetShift = planetPoint + shift;
-			const planetPosition = getPointPosition(
-				point,
-				pointPositionRadius,
-				planetShift,
-			);
-			const startPosition = getPointPosition(
-				point,
-				pointPositionRadius,
-				planetShift,
-			);
-			planetPointList.push(
-
-			);
-		}
-	}
-};
-
+) { } */
+/* Planet Symbols
 const planetSymbols = {
 	[PlanetSymbol.Chiron]: ChironSymbol,
 	[PlanetSymbol.Jupiter]: JupiterSymbol,
@@ -65,8 +30,8 @@ const planetSymbols = {
 	[PlanetSymbol.Sun]: SunSymbol,
 	[PlanetSymbol.Uranus]: UranusSymbol,
 	[PlanetSymbol.Venus]: VenusSymbol,
-};
-
+}; */
+/* Get Planet Symbol
 function getPlanetSymbol(
 	planet: PlanetSymbol,
 	point: Point,
@@ -75,27 +40,16 @@ function getPlanetSymbol(
 	const PlanetComponent = planetSymbols[planet];
 	return (
 		<PlanetComponent
-			point={point}
 			key={key}
+			point={point}
 		/>
 	);
-}
+} */
 
+/* Locate points from where? pointRadius removed
+const pointerRadius = radius - ((radius / INNER_CIRCLE_RADIUS_RATIO) + rulerRadius);
+const pointPositionRadius = pointerRadius - (rulerRadius / 2);
+getPlanets(point, planets, pointPositionRadius, shift); */
+const AstrologyPlanets: React.FC<AstrologyPlanetsProps> = () => <g />;
 
-export default function AstrologyPlanets({
-	point,
-	radius,
-	planets,
-	rulerRadius,
-	pointRadius,
-	shift,
-}: AstrologyPlanetsProps) {
-	// Locate points from where?
-	const pointerRadius = radius - (radius / INNER_CIRCLE_RADIUS_RATIO + rulerRadius);
-	const pointPositionRadius = pointerRadius - rulerRadius / 2;
-
-	return (
-		<g>
-		</g>
-	);
-};
+export default AstrologyPlanets;

@@ -1,16 +1,17 @@
-import { INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, PADDING, RULER_RADIUS, WHITE, radiansToDegree } from "@/lib/AstrologyUtils";
-import { PlanetSymbol, Point } from "@/types/AstrologyTypes";
-import { Horoscope } from "circular-natal-horoscope-js";
-import AstrologyAxis from "./AstrologyAxis";
-import AstrologyPlanets from "./AstrologyPlanets";
-import AstrologyRuler from "./AstrologyRuler";
-import AstrologySegment from "./AstrologySymbols/AstrologySegment";
-import AstrologyUniverse from "./AstrologyUniverse";
+import { INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, RULER_RADIUS, WHITE, radiansToDegree } from '@/lib/AstrologyUtils';
+import { PlanetSymbol, Point } from '@/types/AstrologyTypes';
+import { Horoscope } from 'circular-natal-horoscope-js';
+import React from 'react';
+import AstrologyAxis from './AstrologyAxis';
+import AstrologyPlanets from './AstrologyPlanets';
+import AstrologyRuler from './AstrologyRuler';
+import AstrologySegment from './AstrologySymbols/AstrologySegment';
+import AstrologyUniverse from './AstrologyUniverse';
 
 interface AstrologyChartProps {
-	horoscope: Horoscope | null;
-	height?: number;
-	width?: number;
+	readonly horoscope: Horoscope | null;
+	readonly height?: number;
+	readonly width?: number;
 }
 interface Cusp {
 	ChartPosition: {
@@ -24,47 +25,43 @@ interface Cusp {
 		},
 	};
 }
-
+/* Get reverse for later
 function getReverse(location: number): number {
 	return (location + 180) % 360;
-}
+} */
 
 /**
  * Creates the astrology chart based on the provided horoscope
  * @param {AstrologyChartProps} props The horoscope passed in or null
  * @returns A div with all the SVGs for now for testing
  */
-export default function AstrologyChart({
+const AstrologyChart: React.FC<AstrologyChartProps> = ({
 	horoscope,
 	height = 800,
 	width = 800,
-}: AstrologyChartProps) {
+}) => {
 	const celestialBodyPositions = Object.values(PlanetSymbol).reduce<Record<PlanetSymbol, number | undefined>>(
 		(positions, bodyName) => {
-		  positions[bodyName] = horoscope?.CelestialBodies[bodyName]?.ChartPosition?.Ecliptic?.DecimalDegrees;
-		  return positions;
+			positions[bodyName] = horoscope?.CelestialBodies[bodyName]?.ChartPosition?.Ecliptic?.DecimalDegrees;
+			return positions;
 		},
-		{} as Record<PlanetSymbol, number | undefined>
+		{} as Record<PlanetSymbol, number | undefined>,
 	);
 
-	const cuspPositions: number[] = horoscope?.Houses.map((cusp: Cusp) => {
-		return cusp.ChartPosition.StartPosition.Ecliptic.DecimalDegrees;
-	});
-	
+	const cuspPositions: number[] = horoscope?.Houses.map((cusp: Cusp) => cusp.ChartPosition.StartPosition.Ecliptic.DecimalDegrees);
+	/* Ascendant and other points for later
 	const ascendant = horoscope?.Ascendant.ChartPosition.Horizon.DecimalDegrees || 0;
 	const descendant = getReverse(ascendant);
 	const midheaven = horoscope?.Midheaven.ChartPosition.Horizon.DecimalDegrees || 0;
-	const immumCoeli = (midheaven + 180) % 360;
-	
+	const immumCoeli = (midheaven + 180) % 360; */
+
 	console.log(celestialBodyPositions);
 	console.log(cuspPositions);
 
-	//	sets the SVG style to position: relative; overflow:hidden
+	//	Sets the SVG style to position: relative; overflow:hidden
 	//	INNER_CIRCLE_RADIUS_RATIO = 8; RULER_RADIUS = 4;
 	// drawBg()
-	//	
-
-
+	//
 
 	/**
 	 * Working notes:
@@ -72,34 +69,35 @@ export default function AstrologyChart({
 	 * Symbols are used in Radix.drawCusps(), Radix.drawAxis(), Radix.drawPoints()
 	 * These correspond to cusps, axes, and points and can be inferred from horoscope
 	 * Symbols are used in Chart.calibrate() - unsure what calibration does yet
-	 * 
+	 *
 	 * */
 	const x = width / 2;
 	const y = height / 2;
 	const point: Point = {
 		x,
 		y,
-	}
+	};
 	const radius = y - MARGIN;
 	const backgroundRadius = radius - (radius / INNER_CIRCLE_RADIUS_RATIO);
 	const thickness = radius / INDOOR_CIRCLE_RADIUS_RATIO;
 	let shift = 0;
 	if (cuspPositions && cuspPositions[0]) {
-		shift = radiansToDegree(2*Math.PI) - cuspPositions[0];
+		shift = radiansToDegree(2 * Math.PI) - cuspPositions[0];
 	}
+
 	const rulerRadius = radius / INNER_CIRCLE_RADIUS_RATIO / RULER_RADIUS;
-	const pointRadius = radius - (radius / INNER_CIRCLE_RADIUS_RATIO + 2 * rulerRadius + PADDING);
-	const startRadius = radius - (radius / 8 + rulerRadius);
+	// P const pointRadius = radius - ((radius / INNER_CIRCLE_RADIUS_RATIO) + (2 * rulerRadius) + PADDING);
+	const startRadius = radius - (radius / 8) + rulerRadius;
 	const endRadius = startRadius + rulerRadius;
 	return (
 		<svg
-			id="chart"
+			id='chart'
 			height={height}
 			width={width}
 			viewBox={`0 0 ${height} ${width}`}
 		>
-			<g id="aspects"></g>
-			<g id="radix">
+			<g id='aspects' />
+			<g id='radix'>
 				<AstrologySegment
 					point={point}
 					radius={backgroundRadius}
@@ -125,7 +123,6 @@ export default function AstrologyChart({
 					radius={radius}
 					planets={celestialBodyPositions}
 					rulerRadius={rulerRadius}
-					pointRadius={pointRadius}
 					shift={shift}
 				/>
 				<AstrologyAxis
@@ -138,3 +135,5 @@ export default function AstrologyChart({
 		</svg>
 	);
 };
+
+export default AstrologyChart;

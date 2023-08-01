@@ -1,13 +1,15 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import PlanetSymbol from "./PlanetSymbol";
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import PlanetSymbol from './PlanetSymbol';
 
-export default function PlutoSymbol({ point }: AstrologySymbolProps) {
+const PlutoSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x + 5);
 	const y = Math.round(point.y - 5);
 	const headX = x - 2.3;
 
 	return (
 		<PlanetSymbol
+			hasSecondPath
 			point={{
 				x,
 				y,
@@ -18,7 +20,6 @@ export default function PlutoSymbol({ point }: AstrologySymbolProps) {
 				m 5.76771,13.93858 0,-8.17088
 				m -3.84512,4.32576 7.69024,0
 			`}
-			hasSecondPath
 			secondPath={`
 				m ${headX},${y}
 				a 3.3644834,3.3644834 0 0 1 -3.36448,3.36449 3.3644834,3.3644834 0 0 1 -3.36448,-3.36449 3.3644834,3.3644834 0 0 1 3.36448,-3.36448 3.3644834,3.3644834 0 0 1 3.36448,3.36448
@@ -27,3 +28,5 @@ export default function PlutoSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default PlutoSymbol;

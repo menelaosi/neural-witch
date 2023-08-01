@@ -1,5 +1,6 @@
-import Navigation from "@/components/Navigation";
+import Navigation from '@/components/Navigation';
+import React from 'react';
 
-export default function Contact() {
-	return <Navigation/>
-};
+const Contact: React.FC = () => <Navigation />;
+
+export default Contact;

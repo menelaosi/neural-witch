@@ -1,12 +1,13 @@
-import { DARK_GRAY, INNER_CIRCLE_RADIUS_RATIO, SYMBOL_AXIS_STROKE, getPointPosition } from "@/lib/AstrologyUtils";
-import { Point } from "@/types/AstrologyTypes";
-import AstrologyLine from "./AstrologySymbols/AstrologyLine";
+import { DARK_GRAY, INNER_CIRCLE_RADIUS_RATIO, SYMBOL_AXIS_STROKE, getPointPosition } from '@/lib/AstrologyUtils';
+import { Point } from '@/types/AstrologyTypes';
+import React from 'react';
+import AstrologyLine from './AstrologySymbols/AstrologyLine';
 
 interface AstrologyAxisProps {
-	point: Point;
-	radius: number;
-	cuspPositions: number[];
-	shift: number;
+	readonly point: Point;
+	readonly radius: number;
+	readonly cuspPositions: number[];
+	readonly shift: number;
 }
 
 function getAxisElement(
@@ -20,33 +21,37 @@ function getAxisElement(
 			stroke={DARK_GRAY}
 			strokeWidth={SYMBOL_AXIS_STROKE}
 		/>
-		
+
 	);
 }
 
-export default function AstrologyAxis({
+const AstrologyAxis: React.FC<AstrologyAxisProps> = ({
 	point,
 	radius,
 	cuspPositions,
 	shift,
-}: AstrologyAxisProps) {
-	const axisRadius = radius + radius / INNER_CIRCLE_RADIUS_RATIO / 4;
-	for (let i = 0; i < cuspPositions.length; i++) {
-		const shiftPosition = cuspPositions[i] + shift;
-		const startPosition = getPointPosition(
-			point,
-			radius,
-			shiftPosition,
-		);
-		const endPosition = getPointPosition(
-			point,
-			axisRadius,
-			shiftPosition,
-		);
+}) => {
+	const axisRadius = radius + (radius / INNER_CIRCLE_RADIUS_RATIO / 4);
+	if (cuspPositions) {
+		for (let i = 0; i < cuspPositions.length; i++) {
+			const shiftPosition = cuspPositions[i] + shift;
+			const startPosition = getPointPosition(
+				point,
+				radius,
+				shiftPosition,
+			);
+			const endPosition = getPointPosition(
+				point,
+				axisRadius,
+				shiftPosition,
+			);
+			getAxisElement(startPosition, endPosition);
+		}
 	}
-	return (
-		<g>
 
-		</g>
+	return (
+		<g />
 	);
-}
+};
+
+export default AstrologyAxis;

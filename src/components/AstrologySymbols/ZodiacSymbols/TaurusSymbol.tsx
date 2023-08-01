@@ -1,7 +1,8 @@
-import { AstrologySymbolProps, ColorSigns } from "@/types/AstrologyTypes";
-import ZodiacSymbol from "./ZodiacSymbol";
+import { AstrologySymbolProps, ColorSigns } from '@/types/AstrologyTypes';
+import React from 'react';
+import ZodiacSymbol from './ZodiacSymbol';
 
-export default function TaurusSymbol({ point }: AstrologySymbolProps) {
+const TaurusSymbol: React.FC<AstrologySymbolProps> = ({ point }) => {
 	const x = Math.round(point.x - 9);
 	const y = Math.round(point.y - 11);
 
@@ -22,3 +23,5 @@ export default function TaurusSymbol({ point }: AstrologySymbolProps) {
 		/>
 	);
 };
+
+export default TaurusSymbol;

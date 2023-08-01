@@ -1,20 +1,22 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
-import AstrologySymbol from "../AstrologySymbol";
+import { BLACK, CUSPS_STROKE } from '@/lib/AstrologyUtils';
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
+import AstrologySymbol from '../AstrologySymbol';
 
-export default function CuspSymbol({
+const CuspSymbol: React.FC<AstrologySymbolProps> = ({
 	point,
 	path,
 	hasSecondPath,
 	secondPath,
-}: AstrologySymbolProps) {
-	return (
-		<AstrologySymbol
-			point={point}
-			path={path}
-			strokeColor="#000"
-			strokeWidth="1"
-			hasSecondPath={hasSecondPath}
-			secondPath={secondPath}
-		/>
-	);
-};
+}) => (
+	<AstrologySymbol
+		point={point}
+		path={path}
+		strokeColor={BLACK}
+		strokeWidth={CUSPS_STROKE}
+		hasSecondPath={hasSecondPath}
+		secondPath={secondPath}
+	/>
+);
+
+export default CuspSymbol;

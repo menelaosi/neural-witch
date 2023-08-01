@@ -1,11 +1,12 @@
-import CardComponent from "@/components/CardComponent";
-import Navigation from "@/components/Navigation";
+import CardComponent from '@/components/CardComponent';
+import Navigation from '@/components/Navigation';
+import React from 'react';
 
-export default function Tarot() {
-	return (
-		<div>
-			<Navigation/>
-			<CardComponent/>
-		</div>
-	);
-};
+const Tarot: React.FC = () => (
+	<div>
+		<Navigation />
+		<CardComponent />
+	</div>
+);
+
+export default Tarot;

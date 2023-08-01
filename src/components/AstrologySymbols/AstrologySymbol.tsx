@@ -1,28 +1,28 @@
-import { AstrologySymbolProps } from "@/types/AstrologyTypes";
+import { AstrologySymbolProps } from '@/types/AstrologyTypes';
+import React from 'react';
 
-export default function AstrologySymbol({
+const AstrologySymbol: React.FC<AstrologySymbolProps> = ({
 	path,
 	strokeColor,
 	strokeWidth,
 	hasSecondPath,
 	secondPath,
-}: AstrologySymbolProps) {
-	return (
-		<svg>
-			<path
-				d={path}
+}) => (
+	<svg>
+		<path
+			d={path}
+			stroke={strokeColor}
+			strokeWidth={strokeWidth}
+			fill='none'
+		/>
+		{hasSecondPath
+			&& <path
+				d={secondPath}
 				stroke={strokeColor}
 				strokeWidth={strokeWidth}
-				fill={"none"}
-			/>
-			{hasSecondPath &&
-				<path
-					d={secondPath}
-					stroke={strokeColor}
-					strokeWidth={strokeWidth}
-					fill={"none"}
-				/>
-			}
-		</svg>
-	);
-};
+				fill='none'
+			/>}
+	</svg>
+);
+
+export default AstrologySymbol;
