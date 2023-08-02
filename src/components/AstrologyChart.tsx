@@ -1,5 +1,5 @@
-import { INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, RULER_RADIUS, WHITE, radiansToDegree } from '@/lib/AstrologyUtils';
-import { PlanetSymbol, Point } from '@/types/AstrologyTypes';
+import { INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, PADDING, RULER_RADIUS, WHITE, radiansToDegree } from '@/lib/AstrologyUtils';
+import { Planets, Point } from '@/types/AstrologyTypes';
 import { Horoscope } from 'circular-natal-horoscope-js';
 import React from 'react';
 import AstrologyAxis from './AstrologyAxis';
@@ -9,7 +9,7 @@ import AstrologySegment from './AstrologySymbols/AstrologySegment';
 import AstrologyUniverse from './AstrologyUniverse';
 
 interface AstrologyChartProps {
-	readonly horoscope: Horoscope | null;
+	readonly horoscope: Horoscope;
 	readonly height?: number;
 	readonly width?: number;
 }
@@ -32,7 +32,7 @@ function getReverse(location: number): number {
 
 /**
  * Creates the astrology chart based on the provided horoscope
- * @param {AstrologyChartProps} props The horoscope passed in or null
+ * @param {AstrologyChartProps} props The horoscope passed in or undefined
  * @returns A div with all the SVGs for now for testing
  */
 const AstrologyChart: React.FC<AstrologyChartProps> = ({
@@ -40,12 +40,12 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 	height = 800,
 	width = 800,
 }) => {
-	const celestialBodyPositions = Object.values(PlanetSymbol).reduce<Record<PlanetSymbol, number | undefined>>(
+	const celestialBodyPositions = Object.values(Planets).reduce<Record<Planets, number | undefined>>(
 		(positions, bodyName) => {
-			positions[bodyName] = horoscope?.CelestialBodies[bodyName]?.ChartPosition?.Ecliptic?.DecimalDegrees;
+			positions[bodyName] = horoscope?.CelestialBodies[bodyName.toString()]?.ChartPosition?.Ecliptic?.DecimalDegrees;
 			return positions;
 		},
-		{} as Record<PlanetSymbol, number | undefined>,
+		{} as Record<Planets, number | undefined>,
 	);
 
 	const cuspPositions: number[] = horoscope?.Houses.map((cusp: Cusp) => cusp.ChartPosition.StartPosition.Ecliptic.DecimalDegrees);
@@ -54,9 +54,6 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 	const descendant = getReverse(ascendant);
 	const midheaven = horoscope?.Midheaven.ChartPosition.Horizon.DecimalDegrees || 0;
 	const immumCoeli = (midheaven + 180) % 360; */
-
-	console.log(celestialBodyPositions);
-	console.log(cuspPositions);
 
 	//	Sets the SVG style to position: relative; overflow:hidden
 	//	INNER_CIRCLE_RADIUS_RATIO = 8; RULER_RADIUS = 4;
@@ -85,8 +82,9 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 		shift = radiansToDegree(2 * Math.PI) - cuspPositions[0];
 	}
 
+	console.log(`Horoscope in Chart: ${horoscope.CelestialBodies}`);
 	const rulerRadius = radius / INNER_CIRCLE_RADIUS_RATIO / RULER_RADIUS;
-	// P const pointRadius = radius - ((radius / INNER_CIRCLE_RADIUS_RATIO) + (2 * rulerRadius) + PADDING);
+	const pointRadius = radius - ((radius / INNER_CIRCLE_RADIUS_RATIO) + (2 * rulerRadius) + PADDING);
 	const startRadius = radius - (radius / 8) + rulerRadius;
 	const endRadius = startRadius + rulerRadius;
 	return (
@@ -123,6 +121,7 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 					radius={radius}
 					planets={celestialBodyPositions}
 					rulerRadius={rulerRadius}
+					pointRadius={pointRadius}
 					shift={shift}
 				/>
 				<AstrologyAxis

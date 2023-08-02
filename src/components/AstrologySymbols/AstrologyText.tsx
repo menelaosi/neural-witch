@@ -4,7 +4,7 @@ import React from 'react';
 interface AstrologyTextProps {
 	readonly text: string;
 	readonly point: Point;
-	readonly size: string;
+	readonly size: string | number;
 	readonly color: string;
 }
 

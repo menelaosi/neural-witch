@@ -15,7 +15,8 @@ import AstrologyChart from './AstrologyChart';
  * @param {number} longitutude - Number representing the longitude coordinates
  * @returns {Origin} Returns an origin from the information provided
  */
-function createOrigin(date: Date,
+function createOrigin(
+	date: Date,
 	latitude: number,
 	longitutude: number,
 ): Origin {
@@ -37,7 +38,8 @@ function createOrigin(date: Date,
  * @param {number} longitutude - Number representing the longitude coordinates
  * @returns {Horoscope} - The horoscope using circular-natal-horoscope
  */
-function getHoroscope(date: Date,
+function getHoroscope(
+	date: Date,
 	latitude: number,
 	longitude: number,
 ): Horoscope {
@@ -56,6 +58,7 @@ function getHoroscope(date: Date,
 			trine: 8,
 			square: 7,
 			sextile: 6,
+			quincunx: 5,
 			quintile: 1,
 			septile: 1,
 			'semi-square': 1,
@@ -72,20 +75,25 @@ const GooglePlacesAutoComplete = dynamic(
 
 const BirthInfoForm: React.FC = () => {
 	const [startDate, setStartDate] = useState(new Date());
-	const [place, setPlace] = useState<Option>();
-	const [horoscope, setHoroscope] = useState<Horoscope|null>(null);
-	const handleSelect = (newValue: SingleValue<Option>) => {
-		const selectedPlace = newValue ? newValue.value : null;
+	const [place, setPlace] = useState<Option | null>(null);
+	const [horoscope, setHoroscope] = useState<Horoscope|undefined>(undefined);
+
+	const setAddress = (selectedPlace: SingleValue<Option>) => {
 		setPlace(selectedPlace);
 	};
 
 	const onFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (place) {
-			const results = await geocodeByAddress(place.value);
-			const latLng = await getLatLng(results[0]);
-			const horoscope = getHoroscope(startDate, latLng.lat, latLng.lng);
-			setHoroscope(horoscope);
+			try {
+				const results = await geocodeByAddress(place.label);
+				const latLng = await getLatLng(results[0]);
+				const horoscope = getHoroscope(startDate, latLng.lat, latLng.lng);
+				console.log(`OnformSubmit ${horoscope}`);
+				setHoroscope(horoscope);
+			} catch (error) {
+				console.error(error);
+			}
 		}
 	};
 
@@ -105,14 +113,14 @@ const BirthInfoForm: React.FC = () => {
 					<GooglePlacesAutoComplete
 						selectProps={{
 							value: place,
-							onChange: handleSelect,
+							onChange: setAddress,
 						}}
 						apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
 					/>
 				</div>
 			</label>
 			<button type='submit'>Submit</button>
-			<AstrologyChart horoscope={horoscope} />
+			{horoscope && <AstrologyChart horoscope={horoscope} />}
 		</form>
 	);
 };

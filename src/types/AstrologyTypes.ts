@@ -12,21 +12,48 @@ export interface AstrologySymbolProps {
 	secondPath?: string;
 }
 
+export interface LocatedPoint {
+	name: Planets;
+	point: Point;
+	r: number;
+	angle: number;
+	pointer: number;
+}
+
+export interface DescriptionPosition {
+	text: string;
+	point: Point;
+}
+
+export interface DefaultDignities {
+	name: string;
+	position: number;
+	orbit: number;
+}
+
+export enum Dignities {
+	Rulership = 'r',
+	Detriment = 'd',
+	Exaltation = 'e',
+	ExactExaltation = 'E',
+	Fall = 'f',
+}
+
 // Planet Symbols
-export enum PlanetSymbol {
-	Sun = 'Sun',
-	Moon = 'Moon',
-	Mercury = 'Mercury',
-	Venus = 'Venus',
-	Mars = 'Mars',
-	Jupiter = 'Jupiter',
-	Saturn = 'Saturn',
-	Uranus = 'Uranus',
-	Neptune = 'Neptune',
-	Pluto = 'Pluto',
-	Chiron = 'Chiron',
-	Lilith = 'Lilith',
-	NorthNode = 'Nnode',
+export enum Planets {
+	Sun = 'sun',
+	Moon = 'moon',
+	Mercury = 'mercury',
+	Venus = 'venus',
+	Mars = 'mars',
+	Jupiter = 'jupiter',
+	Saturn = 'saturn',
+	Uranus = 'uranus',
+	Neptune = 'neptune',
+	Pluto = 'pluto',
+	Chiron = 'chiron',
+	Lilith = 'lilith',
+	NorthNode = 'nnode',
 }
 
 export enum ColorSigns {
@@ -44,7 +71,7 @@ export enum ColorSigns {
 	ColorPisces = '#4682B4',
 }
 
-export enum SignSymbol {
+export enum ZodiacSign {
 	Aries = 'Aries',
 	Taurus = 'Taurus',
 	Gemini = 'Gemini',
@@ -57,4 +84,19 @@ export enum SignSymbol {
 	Capricorn = 'Capricorn',
 	Aquarius = 'Aquarius',
 	Pisces = 'Pisces',
+}
+
+export enum ZodiacNumber {
+	Aries = 1,
+	Taurus = 2,
+	Gemini = 3,
+	Cancer = 4,
+	Leo = 5,
+	Virgo = 6,
+	Libra = 7,
+	Scorpio = 8,
+	Sagittarius = 9,
+	Capricorn = 10,
+	Aquarius = 11,
+	Pisces = 12,
 }

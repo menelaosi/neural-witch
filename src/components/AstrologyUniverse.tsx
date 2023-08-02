@@ -1,5 +1,5 @@
 import { DARK_GRAY, INNER_CIRCLE_RADIUS_RATIO, getPointPosition } from '@/lib/AstrologyUtils';
-import { Point, SignSymbol } from '@/types/AstrologyTypes';
+import { Point, ZodiacSign } from '@/types/AstrologyTypes';
 import React from 'react';
 import AstrologySegment from './AstrologySymbols/AstrologySegment';
 import AquariusSymbol from './AstrologySymbols/ZodiacSymbols/AquariusSymbol';
@@ -50,22 +50,22 @@ function getSegments(
 }
 
 const signSymbols = {
-	[SignSymbol.Aquarius]: AquariusSymbol,
-	[SignSymbol.Aries]: AriesSymbol,
-	[SignSymbol.Cancer]: CancerSymbol,
-	[SignSymbol.Capricorn]: CapricornSymbol,
-	[SignSymbol.Gemini]: GeminiSymbol,
-	[SignSymbol.Leo]: LeoSymbol,
-	[SignSymbol.Libra]: LibraSymbol,
-	[SignSymbol.Pisces]: PiscesSymbol,
-	[SignSymbol.Sagittarius]: SagittariusSymbol,
-	[SignSymbol.Scorpio]: ScorpioSymbol,
-	[SignSymbol.Taurus]: TaurusSymbol,
-	[SignSymbol.Virgo]: VirgoSymbol,
+	[ZodiacSign.Aquarius]: AquariusSymbol,
+	[ZodiacSign.Aries]: AriesSymbol,
+	[ZodiacSign.Cancer]: CancerSymbol,
+	[ZodiacSign.Capricorn]: CapricornSymbol,
+	[ZodiacSign.Gemini]: GeminiSymbol,
+	[ZodiacSign.Leo]: LeoSymbol,
+	[ZodiacSign.Libra]: LibraSymbol,
+	[ZodiacSign.Pisces]: PiscesSymbol,
+	[ZodiacSign.Sagittarius]: SagittariusSymbol,
+	[ZodiacSign.Scorpio]: ScorpioSymbol,
+	[ZodiacSign.Taurus]: TaurusSymbol,
+	[ZodiacSign.Virgo]: VirgoSymbol,
 };
 
 function getSignSymbol(
-	sign: SignSymbol,
+	sign: ZodiacSign,
 	point: Point,
 	key: number,
 ) {
@@ -85,7 +85,7 @@ function getSigns(
 ) {
 	const step = 30;
 	let start = 15 + shift;
-	const signList = Object.values(SignSymbol);
+	const signList = Object.values(ZodiacSign);
 	const signSymbols: React.ReactElement[] = [];
 	for (let i = 0; i < signList.length; i++) {
 		const pointRadius = radius - (radius / 16);
