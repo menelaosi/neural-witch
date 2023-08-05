@@ -15,7 +15,7 @@ export interface AstrologySymbolProps {
 export interface LocatedPoint {
 	name: Planets;
 	point: Point;
-	r: number;
+	radius: number;
 	angle: number;
 	pointer: number;
 }
@@ -99,4 +99,11 @@ export enum ZodiacNumber {
 	Capricorn = 10,
 	Aquarius = 11,
 	Pisces = 12,
+}
+
+export enum Axis {
+	Ascendant = 0,
+	ImmumCoeli = 3,
+	Descendant = 6,
+	Midheaven = 9,
 }

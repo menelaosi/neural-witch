@@ -1,6 +1,6 @@
 import { DARK_GRAY, INNER_CIRCLE_RADIUS_RATIO, getPointPosition } from '@/lib/AstrologyUtils';
 import { Point, ZodiacSign } from '@/types/AstrologyTypes';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import AstrologySegment from './AstrologySymbols/AstrologySegment';
 import AquariusSymbol from './AstrologySymbols/ZodiacSymbols/AquariusSymbol';
 import AriesSymbol from './AstrologySymbols/ZodiacSymbols/AriesSymbol';
@@ -19,34 +19,7 @@ interface AstrologyUniverseProps {
 	readonly point: Point;
 	readonly shift: number;
 	readonly radius: number;
-}
-
-function getSegments(
-	point: Point,
-	shift: number,
-	radius: number,
-) {
-	const segments: React.ReactElement[] = [];
-	const signList = Object.values(signSymbols);
-	for (let i = 0, step = 30, start = shift; i < signList.length; i++) {
-		const angleTo = start + step;
-		const thickness = radius - (radius / INNER_CIRCLE_RADIUS_RATIO);
-		segments.push(
-			<AstrologySegment
-				key={i}
-				point={point}
-				radius={radius}
-				angleFrom={start}
-				angleTo={angleTo}
-				thickness={thickness}
-				stroke={DARK_GRAY}
-				strokeWidth={1}
-			/>,
-		);
-		start += step;
-	}
-
-	return segments;
+	readonly backgroundRadius: number;
 }
 
 const signSymbols = {
@@ -78,48 +51,53 @@ function getSignSymbol(
 	);
 }
 
-function getSigns(
-	point: Point,
-	shift: number,
-	radius: number,
-) {
-	const step = 30;
-	let start = 15 + shift;
-	const signList = Object.values(ZodiacSign);
-	const signSymbols: React.ReactElement[] = [];
-	for (let i = 0; i < signList.length; i++) {
-		const pointRadius = radius - (radius / 16);
-		const pointPosition = getPointPosition(
-			point,
-			pointRadius,
-			start,
-		);
-		signSymbols.push(getSignSymbol(signList[i], pointPosition, i));
-		start += step;
-	}
-
-	return signSymbols;
-}
-
 const AstrologyUniverse: React.FC<AstrologyUniverseProps> = ({
 	point,
 	shift,
 	radius,
+	backgroundRadius,
 }) => {
-	const segments = getSegments(
-		point,
-		shift,
-		radius,
-	);
-	const signs = getSigns(
-		point,
-		shift,
-		radius,
-	);
+	const segments: ReactElement[] = [];
+	const signSymbols: ReactElement[] = [];
+	const signList = Object.values(ZodiacSign);
+	const pointRadius = radius - (radius / INNER_CIRCLE_RADIUS_RATIO / 2);
+	let segmentStart = shift;
+	let signStart = segmentStart + 15;
+	const step = 30;
+	for (let i = 0; i < signList.length; i++) {
+		const angleTo = segmentStart + step;
+		segments.push(
+			<AstrologySegment
+				key={i}
+				point={point}
+				radius={radius}
+				angleFrom={segmentStart}
+				angleTo={angleTo}
+				thickness={backgroundRadius}
+				stroke={DARK_GRAY}
+				strokeWidth={1}
+			/>,
+		);
+		const pointPosition = getPointPosition(
+			point,
+			pointRadius,
+			signStart,
+		);
+		signSymbols.push(
+			getSignSymbol(
+				signList[i],
+				pointPosition,
+				i + 12,
+			),
+		);
+		segmentStart += step;
+		signStart += step;
+	}
+
 	return (
-		<g>
+		<g id='signs'>
 			{ segments }
-			{ signs }
+			{ signSymbols }
 		</g>
 	);
 };

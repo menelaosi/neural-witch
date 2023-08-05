@@ -14,6 +14,7 @@ export const RULER_RADIUS = 4;
 export const SYMBOL_AXIS_STROKE = 1.6;
 export const CUSPS_STROKE = 1;
 export const COLLISION_RADIUS = 10;
+export const FULL_CIRCLE = 360;
 
 const SHIFT_IN_DEGREES = 180;
 
@@ -61,7 +62,7 @@ export const DIGNITIES_EXACT_EXALTATIONS_DEFAULT: DefaultDignities[] = [
 ];
 
 function getSign(angle: number): ZodiacNumber {
-	const pointAngle = angle % radiansToDegree(2 * Math.PI);
+	const pointAngle = angle % FULL_CIRCLE;
 	return Math.floor((pointAngle / 30) + 1);
 }
 
@@ -149,12 +150,12 @@ function hasConjunction(
 	const halfOrbit = orbit / 2;
 	let minimumOrbit = pointPosition - halfOrbit;
 	if (minimumOrbit < 0) {
-		minimumOrbit = radiansToDegree(2 * Math.PI) - minimumOrbit;
+		minimumOrbit = FULL_CIRCLE - minimumOrbit;
 	}
 
 	let maximumOrbit = pointPosition + halfOrbit;
-	if (maximumOrbit >= radiansToDegree(2 * Math.PI)) {
-		maximumOrbit -= radiansToDegree(2 * Math.PI);
+	if (maximumOrbit >= FULL_CIRCLE) {
+		maximumOrbit -= FULL_CIRCLE;
 	}
 
 	return planetPosition <= maximumOrbit || planetPosition >= minimumOrbit;
@@ -211,11 +212,7 @@ export function getDescriptionPosition(
  * @returns {number} angle in degrees
  */
 export function convertShiftInDegrees(angle: number): number {
-	return ((SHIFT_IN_DEGREES - angle) % 360) * Math.PI / SHIFT_IN_DEGREES;
-}
-
-export function radiansToDegree(radians: number): number {
-	return radians * 180 / Math.PI;
+	return ((SHIFT_IN_DEGREES - angle) % FULL_CIRCLE) * Math.PI / SHIFT_IN_DEGREES;
 }
 
 export function isRetrograde(speed: number) {
@@ -234,4 +231,108 @@ export function getPointPosition(
 		x,
 		y,
 	};
+}
+
+function isCollision(
+	locatedPoint: LocatedPoint,
+	comparePoint: LocatedPoint,
+): boolean {
+	const vX = locatedPoint.point.x - comparePoint.point.x;
+	const vY = locatedPoint.point.y - comparePoint.point.y;
+
+	const magnitude = Math.sqrt(vX * vX * vY * vY);
+	const totalRadii = locatedPoint.radius + comparePoint.radius;
+
+	return magnitude <= totalRadii;
+}
+
+export function assembleLocatedPoints(
+	locatedPoints: LocatedPoint[],
+	locatedPoint: LocatedPoint,
+	centerPoint: Point,
+	pointRadius: number,
+): LocatedPoint[] {
+	if (locatedPoints.length === 0) {
+		locatedPoints.push(locatedPoint);
+		return locatedPoints;
+	}
+
+	const placePointsInCollision = (
+		locatedCollisionPoint: LocatedPoint,
+		locatedPoint: LocatedPoint,
+	) => {
+		const pointerDifference = Math.abs(locatedCollisionPoint.pointer - locatedPoint.pointer);
+		if ((locatedCollisionPoint.pointer <= locatedPoint.pointer && pointerDifference <= COLLISION_RADIUS)
+		|| (locatedCollisionPoint.pointer <= locatedPoint.pointer && pointerDifference >= COLLISION_RADIUS)) {
+			locatedCollisionPoint.angle--;
+			locatedPoint.angle++;
+		} else {
+			locatedCollisionPoint.angle++;
+			locatedPoint.angle--;
+		}
+
+		locatedCollisionPoint.angle = (locatedCollisionPoint.angle + FULL_CIRCLE) % FULL_CIRCLE;
+		locatedPoint.angle = (locatedPoint.angle + FULL_CIRCLE) % FULL_CIRCLE;
+	};
+
+	locatedPoints.sort((
+		pointA: LocatedPoint,
+		pointB: LocatedPoint,
+	) => pointA.angle - pointB.angle);
+
+	let hasCollision = false;
+	let locatedCollisionPoint = locatedPoint;
+	let locatedCollisionPointIndex = 0;
+	for (let i = 0; i < locatedPoints.length; i++) {
+		if (isCollision(
+			locatedPoints[i],
+			locatedPoint,
+		)) {
+			hasCollision = true;
+			locatedCollisionPoint = locatedPoints[i];
+			locatedCollisionPointIndex = i;
+			break;
+		}
+	}
+
+	if (hasCollision) {
+		placePointsInCollision(
+			locatedCollisionPoint,
+			locatedPoint,
+		);
+
+		let newPointPosition = getPointPosition(
+			centerPoint,
+			pointRadius,
+			locatedCollisionPoint.angle,
+		);
+
+		locatedCollisionPoint.point = newPointPosition;
+
+		newPointPosition = getPointPosition(
+			centerPoint,
+			pointRadius,
+			locatedCollisionPoint.angle,
+		);
+
+		locatedPoints.splice(locatedCollisionPointIndex, 1);
+
+		locatedPoints = assembleLocatedPoints(
+			locatedPoints,
+			locatedCollisionPoint,
+			centerPoint,
+			pointRadius,
+		);
+
+		locatedPoints = assembleLocatedPoints(
+			locatedPoints,
+			locatedPoint,
+			centerPoint,
+			pointRadius,
+		);
+	} else {
+		locatedPoints.push(locatedPoint);
+	}
+
+	return locatedPoints;
 }

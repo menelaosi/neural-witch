@@ -1,4 +1,4 @@
-import { BLACK, COLLISION_RADIUS, CUSPS_STROKE, DARK_GRAY, INNER_CIRCLE_RADIUS_RATIO, POINTS_TEXT_SIZE, getDescriptionPosition, getDignities, getPointPosition, isRetrograde } from '@/lib/AstrologyUtils';
+import { BLACK, COLLISION_RADIUS, CUSPS_STROKE, DARK_GRAY, INNER_CIRCLE_RADIUS_RATIO, POINTS_TEXT_SIZE, assembleLocatedPoints, getDescriptionPosition, getDignities, getPointPosition, isRetrograde } from '@/lib/AstrologyUtils';
 import { LocatedPoint, Planets, Point } from '@/types/AstrologyTypes';
 import React, { ReactElement } from 'react';
 import AstrologyLine from './AstrologySymbols/AstrologyLine';
@@ -75,6 +75,7 @@ const AstrologyPlanets: React.FC<AstrologyPlanetsProps> = ({
 	const elements: ReactElement[] = [];
 	const halfStroke = CUSPS_STROKE / 2;
 	let key = 0;
+	let locatedPoints: LocatedPoint[] = [];
 	Object.keys(planets).forEach(planet => {
 		const planetValue = planets[planet as Planets];
 
@@ -82,7 +83,7 @@ const AstrologyPlanets: React.FC<AstrologyPlanetsProps> = ({
 			return;
 		}
 
-		const planetShift = planetValue + shift;
+		let planetShift = planetValue + shift;
 		const position = getPointPosition(
 			point,
 			pointRadius,
@@ -92,46 +93,55 @@ const AstrologyPlanets: React.FC<AstrologyPlanetsProps> = ({
 		const locatedPoint: LocatedPoint = {
 			name: planet as Planets,
 			point: position,
-			r: COLLISION_RADIUS,
+			radius: COLLISION_RADIUS,
 			angle: planetShift,
 			pointer: planetShift,
 		};
 
-		let startPosition = getPointPosition(
+		locatedPoints = assembleLocatedPoints(
+			locatedPoints,
+			locatedPoint,
 			point,
-			pointerRadius,
-			planetShift,
-		);
-		let endPosition = getPointPosition(
-			point,
-			pointerRadius - (rulerRadius / 2),
-			planetShift,
+			pointRadius,
 		);
 
-		elements.push(
-			<AstrologyLine
-				startingPoint={startPosition}
-				endingPoint={endPosition}
-				stroke={DARK_GRAY}
-				strokeWidth={CUSPS_STROKE}
-			/>,
-		);
-		if (planetShift !== locatedPoint.angle) {
-			startPosition = endPosition;
-			endPosition = getPointPosition(
+		locatedPoints.forEach((locatedPoint: LocatedPoint) => {
+			let startPosition = getPointPosition(
 				point,
-				pointCollision,
-				locatedPoint.angle,
+				pointerRadius,
+				planetShift,
+			);
+			let endPosition = getPointPosition(
+				point,
+				pointerRadius - (rulerRadius / 2),
+				planetShift,
 			);
 			elements.push(
 				<AstrologyLine
 					startingPoint={startPosition}
 					endingPoint={endPosition}
 					stroke={DARK_GRAY}
-					strokeWidth={halfStroke}
+					strokeWidth={CUSPS_STROKE}
 				/>,
 			);
-		}
+			planetShift = planets[locatedPoint.name]! + shift;
+			if (planetShift !== locatedPoint.angle) {
+				startPosition = endPosition;
+				endPosition = getPointPosition(
+					point,
+					pointCollision,
+					locatedPoint.angle,
+				);
+				elements.push(
+					<AstrologyLine
+						startingPoint={startPosition}
+						endingPoint={endPosition}
+						stroke={DARK_GRAY}
+						strokeWidth={halfStroke}
+					/>,
+				);
+			}
+		});
 
 		const planetName = locatedPoint.name;
 		elements.push(getPlanetSymbol(
@@ -167,7 +177,7 @@ const AstrologyPlanets: React.FC<AstrologyPlanetsProps> = ({
 		}
 	});
 	return (
-		<g>
+		<g id='points'>
 			{ elements }
 		</g>
 	);
