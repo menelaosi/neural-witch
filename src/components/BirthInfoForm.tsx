@@ -88,8 +88,7 @@ const BirthInfoForm: React.FC = () => {
 			try {
 				const results = await geocodeByAddress(place.label);
 				const latLng = await getLatLng(results[0]);
-				const horoscope = getHoroscope(startDate, latLng.lat, latLng.lng);
-				console.log(`OnformSubmit ${horoscope}`);
+				const horoscope = await getHoroscope(startDate, latLng.lat, latLng.lng);
 				setHoroscope(horoscope);
 			} catch (error) {
 				console.error(error);

@@ -13,7 +13,7 @@ export interface AstrologySymbolProps {
 }
 
 export interface LocatedPoint {
-	name: Planets;
+	planetName: Planets;
 	point: Point;
 	radius: number;
 	angle: number;

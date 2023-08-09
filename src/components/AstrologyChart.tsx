@@ -1,5 +1,5 @@
-import { FULL_CIRCLE, INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, PADDING, RULER_RADIUS, WHITE } from '@/lib/AstrologyUtils';
-import { Planets, Point } from '@/types/AstrologyTypes';
+import { COLLISION_RADIUS, FULL_CIRCLE, INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, PADDING, RULER_RADIUS, WHITE, assembleLocatedPoints, getPointPosition } from '@/lib/AstrologyUtils';
+import { LocatedPoint, Planets, Point } from '@/types/AstrologyTypes';
 import { Horoscope } from 'circular-natal-horoscope-js';
 import React from 'react';
 import AstrologyAxis from './AstrologyAxis';
@@ -28,6 +28,62 @@ interface Cusp {
 	};
 }
 
+function getCelestialBodyPositions(horoscope: Horoscope): Record<Planets, number | undefined> {
+	return Object.values(Planets).reduce<Record<Planets, number | undefined>>(
+		(positions, bodyName) => {
+			positions[bodyName] = horoscope?.CelestialBodies[bodyName.toString()]
+				?.ChartPosition
+				?.Ecliptic
+				?.DecimalDegrees;
+			return positions;
+		},
+		{} as Record<Planets, number | undefined>,
+	);
+}
+
+function getCuspPositions(horoscope: Horoscope): number[] {
+	return horoscope?.Houses
+		.map((cusp: Cusp) => cusp.ChartPosition
+			.StartPosition
+			.Ecliptic
+			.DecimalDegrees,
+		);
+}
+
+function getLocatedPoints(
+	celestialBodyPositions: Record<Planets, number | undefined>,
+	point: Point,
+	pointRadius: number,
+	shift: number,
+): LocatedPoint[] {
+	let locatedPoints: LocatedPoint[] = [];
+	const planetNames = Object.keys(celestialBodyPositions);
+	planetNames.forEach(planet => {
+		const planetName = planet as Planets;
+		const planetShift = (celestialBodyPositions[planetName] || 0) + shift;
+		const position = getPointPosition(
+			point,
+			pointRadius,
+			planetShift,
+		);
+		const locatedPoint = {
+			planetName,
+			point: position,
+			radius: COLLISION_RADIUS,
+			angle: planetShift,
+			pointer: planetShift,
+		};
+		locatedPoints = assembleLocatedPoints(
+			locatedPoints,
+			locatedPoint,
+			point,
+			pointRadius,
+		);
+	});
+
+	return locatedPoints;
+}
+
 /**
  * Creates the astrology chart based on the provided horoscope
  * @param {AstrologyChartProps} props The horoscope passed in or undefined
@@ -38,15 +94,6 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 	height = 800,
 	width = 800,
 }) => {
-	const celestialBodyPositions = Object.values(Planets).reduce<Record<Planets, number | undefined>>(
-		(positions, bodyName) => {
-			positions[bodyName] = horoscope?.CelestialBodies[bodyName.toString()]?.ChartPosition?.Ecliptic?.DecimalDegrees;
-			return positions;
-		},
-		{} as Record<Planets, number | undefined>,
-	);
-
-	const cuspPositions: number[] = horoscope?.Houses.map((cusp: Cusp) => cusp.ChartPosition.StartPosition.Ecliptic.DecimalDegrees);
 	const x = width / 2;
 	const y = height / 2;
 	const point: Point = {
@@ -55,16 +102,29 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 	};
 
 	const radius = y - MARGIN;
-	const backgroundRadius = radius - (radius / INNER_CIRCLE_RADIUS_RATIO);
+
+	const radiusRatio = radius / INNER_CIRCLE_RADIUS_RATIO;
+	const backgroundRadius = radius - radiusRatio;
 	const thickness = radius / INDOOR_CIRCLE_RADIUS_RATIO;
 
-	let shift = 0;
-	if (cuspPositions && cuspPositions[0]) {
-		shift = FULL_CIRCLE - cuspPositions[0];
-	}
+	const rulerRadius = radiusRatio / RULER_RADIUS;
+	const pointRadius = radius - (radiusRatio + (2 * rulerRadius) + PADDING);
 
-	const rulerRadius = radius / INNER_CIRCLE_RADIUS_RATIO / RULER_RADIUS;
-	const pointRadius = radius - ((radius / INNER_CIRCLE_RADIUS_RATIO) + (2 * rulerRadius) + PADDING);
+	const celestialBodyPositions = getCelestialBodyPositions(horoscope);
+
+	const cuspPositions = getCuspPositions(horoscope);
+
+	const shift = (cuspPositions && cuspPositions[0])
+		? FULL_CIRCLE - cuspPositions[0]
+		: 0;
+
+	const locatedPoints = getLocatedPoints(
+		celestialBodyPositions,
+		point,
+		pointRadius,
+		shift,
+	);
+
 	return (
 		<svg
 			id='chart'
@@ -101,6 +161,7 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 					point={point}
 					radius={radius}
 					planets={celestialBodyPositions}
+					locatedPoints={locatedPoints}
 					rulerRadius={rulerRadius}
 					pointRadius={pointRadius}
 					shift={shift}
