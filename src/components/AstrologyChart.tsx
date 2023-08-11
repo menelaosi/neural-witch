@@ -109,6 +109,8 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 
 	const rulerRadius = radiusRatio / RULER_RADIUS;
 	const pointRadius = radius - (radiusRatio + (2 * rulerRadius) + PADDING);
+	const numbersRadius = (radius / INDOOR_CIRCLE_RADIUS_RATIO) + COLLISION_RADIUS;
+	const endDashedLineRadius = radius - (radiusRatio + rulerRadius);
 
 	const celestialBodyPositions = getCelestialBodyPositions(horoscope);
 
@@ -168,9 +170,12 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 				/>
 				<AstrologyCusps
 					point={point}
-					radius={radius}
+					numbersRadius={numbersRadius}
+					pointRadius={pointRadius}
+					endDashedLineRadius={endDashedLineRadius}
 					cuspPositions={cuspPositions}
 					shift={shift}
+					locatedPoints={locatedPoints}
 				/>
 				<AstrologyAxis
 					point={point}

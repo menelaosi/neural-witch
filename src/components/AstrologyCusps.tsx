@@ -1,6 +1,7 @@
-import { COLLISION_RADIUS, FULL_CIRCLE, INDOOR_CIRCLE_RADIUS_RATIO, getPointPosition } from '@/lib/AstrologyUtils';
-import { Point } from '@/types/AstrologyTypes';
+import { COLLISION_RADIUS, CUSPS_STROKE, DARK_GRAY, FULL_CIRCLE, SYMBOL_AXIS_STROKE, getPointPosition } from '@/lib/AstrologyUtils';
+import { LocatedPoint, Point } from '@/types/AstrologyTypes';
 import React, { ReactElement } from 'react';
+import AstrologyLine from './AstrologySymbols/AstrologyLine';
 import House10Symbol from './AstrologySymbols/CuspSymbols/House10Symbol';
 import House11Symbol from './AstrologySymbols/CuspSymbols/House11Symbol';
 import House12Symbol from './AstrologySymbols/CuspSymbols/House12Symbol';
@@ -16,11 +17,14 @@ import House9Symbol from './AstrologySymbols/CuspSymbols/House9Symbol';
 
 interface AstrologyCuspsProps {
 	readonly point: Point;
-	readonly radius: number;
+	readonly numbersRadius: number;
+	readonly pointRadius: number;
+	readonly endDashedLineRadius: number;
 	readonly cuspPositions: number[];
 	readonly shift: number;
+	readonly locatedPoints: LocatedPoint[];
 }
-/* Helpers
+
 function isInCollision(
 	angle: number,
 	locatedPoints: LocatedPoint[],
@@ -36,61 +40,6 @@ function isInCollision(
 
 	return false;
 }
-
-function getDashedLinesPositions(
-	point: Point,
-	angle: number,
-	startRadius: number,
-	endRadius: number,
-	obstacleRadius: number,
-	obstacles: LocatedPoint[],
-): Point[] {
-	const results: Point[] = [];
-	const defaultStartPosition = getPointPosition(
-		point,
-		startRadius,
-		angle,
-	);
-	const defaultEndPosition = getPointPosition(
-		point,
-		endRadius,
-		angle,
-	);
-	let modifiedPosition = point;
-
-	const a = obstacleRadius - COLLISION_RADIUS;
-	const b = obstacleRadius + (2 * COLLISION_RADIUS);
-
-	if (isInCollision(angle, obstacles)) {
-		modifiedPosition = getPointPosition(
-			point,
-			a,
-			angle,
-		);
-		results.push(
-			defaultStartPosition,
-			modifiedPosition,
-		);
-		if (b < endRadius) {
-			modifiedPosition = getPointPosition(
-				point,
-				b,
-				angle,
-			);
-			results.push(
-				modifiedPosition,
-				defaultEndPosition,
-			);
-		}
-	} else {
-		results.push(
-			defaultStartPosition,
-			defaultEndPosition,
-		);
-	}
-
-	return results;
-} */
 
 const cuspSymbols = [
 	House1Symbol,
@@ -109,33 +58,105 @@ const cuspSymbols = [
 
 function getCuspSymbol(
 	house: number,
+	key: number,
 	point: Point,
 ): ReactElement {
 	const CuspSymbol = cuspSymbols[house];
-	return <CuspSymbol point={point} />;
+	return (
+		<CuspSymbol
+			key={key}
+			point={point}
+		/>
+	);
 }
 
 const AstrologyCusps: React.FC<AstrologyCuspsProps> = ({
 	point,
-	radius,
+	numbersRadius,
+	pointRadius,
+	endDashedLineRadius,
 	cuspPositions,
 	shift,
+	locatedPoints,
 }) => {
-	const numbersRadius = (radius / INDOOR_CIRCLE_RADIUS_RATIO) + COLLISION_RADIUS;
 	const elements: ReactElement[] = [];
-	// Slet strokeWidth = CUSPS_STROKE;
-	// Get dashed lines
+	let strokeWidth = CUSPS_STROKE;
+	const startRadius = numbersRadius - COLLISION_RADIUS;
+	const dashedLineRadius = pointRadius + (2 * COLLISION_RADIUS);
+	let key = 0;
+	let startingPoint = point;
+	let endingPoint = startingPoint;
+
 	for (let i = 0; i < cuspPositions.length; i++) {
-		/* SstrokeWidth = i % 3 === 0 ? SYMBOL_AXIS_STROKE : CUSPS_STROKE;
-		const lines = getDashedLinesPositions(
-			point,
-			0,
-			0,
-			0,
-			0,
-			[],
-		); */
-		// Do something to get these lines but what?
+		strokeWidth = i % 3 === 0 ? SYMBOL_AXIS_STROKE : CUSPS_STROKE;
+		const cuspPositionAngle = cuspPositions[i] + shift;
+		if (isInCollision(cuspPositionAngle, locatedPoints)) {
+			startingPoint = getPointPosition(
+				point,
+				startRadius,
+				cuspPositionAngle,
+			);
+			endingPoint = getPointPosition(
+				point,
+				pointRadius - COLLISION_RADIUS,
+				cuspPositionAngle,
+			);
+			elements.push(
+				<AstrologyLine
+					key={key}
+					startingPoint={startingPoint}
+					endingPoint={endingPoint}
+					stroke={DARK_GRAY}
+					strokeWidth={strokeWidth}
+				/>,
+			);
+
+			key++;
+			if (dashedLineRadius < endDashedLineRadius) {
+				startingPoint = getPointPosition(
+					point,
+					dashedLineRadius,
+					cuspPositionAngle,
+				);
+				endingPoint = getPointPosition(
+					point,
+					endDashedLineRadius,
+					cuspPositionAngle,
+				);
+				elements.push(
+					<AstrologyLine
+						key={key}
+						startingPoint={startingPoint}
+						endingPoint={endingPoint}
+						stroke={DARK_GRAY}
+						strokeWidth={strokeWidth}
+					/>,
+				);
+				key++;
+			}
+		} else {
+			startingPoint = getPointPosition(
+				point,
+				startRadius,
+				cuspPositionAngle,
+			);
+			endingPoint = getPointPosition(
+				point,
+				endDashedLineRadius,
+				cuspPositionAngle,
+			);
+			elements.push(
+				<AstrologyLine
+					key={key}
+					startingPoint={startingPoint}
+					endingPoint={endingPoint}
+					stroke={DARK_GRAY}
+					strokeWidth={strokeWidth}
+				/>,
+			);
+			key++;
+		}
+
 		const cuspStart = cuspPositions[i];
 		const cuspEnd = cuspPositions[(i + 1) % 12];
 		const gap = cuspEnd - cuspStart > 0 ? cuspEnd - cuspStart : cuspEnd - cuspStart + FULL_CIRCLE;
@@ -145,7 +166,8 @@ const AstrologyCusps: React.FC<AstrologyCuspsProps> = ({
 			numbersRadius,
 			angle,
 		);
-		elements.push(getCuspSymbol(i, textPosition));
+		elements.push(getCuspSymbol(i, key, textPosition));
+		key++;
 	}
 
 	return (
