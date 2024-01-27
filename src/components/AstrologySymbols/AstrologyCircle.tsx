@@ -19,12 +19,11 @@ const AstrologyCircle: React.FC<CircleProps> = ({
 		x,
 		y,
 	} = point;
-	const circleRadius = radius / 8;
 	return (
 		<circle
 			cx={x}
 			cy={y}
-			radius={circleRadius}
+			radius={radius}
 			stroke={stroke}
 			strokeWidth={strokeWidth}
 			fill={fill}

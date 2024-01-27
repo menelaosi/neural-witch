@@ -1,4 +1,4 @@
-import { CUSPS_STROKE, DARK_GRAY, INNER_CIRCLE_RADIUS_RATIO, getPointPosition } from '@/lib/AstrologyUtils';
+import { CUSPS_STROKE, DARK_GRAY, getPointPosition } from '@/lib/AstrologyUtils';
 import { Point } from '@/types/AstrologyTypes';
 import React from 'react';
 import AstrologyCircle from './AstrologySymbols/AstrologyCircle';
@@ -6,9 +6,10 @@ import AstrologyLine from './AstrologySymbols/AstrologyLine';
 
 interface AstrologyRulerProps {
 	readonly point: Point;
-	readonly radius: number;
+	readonly startRadius: number;
 	readonly rulerRadius: number;
 	readonly startAngle: number;
+	readonly isTransit?: boolean;
 }
 
 function getRulerPositions(
@@ -60,12 +61,13 @@ function getRulerPositions(
 
 const AstrologyRuler: React.FC<AstrologyRulerProps> = ({
 	point,
-	radius,
+	startRadius,
 	rulerRadius,
 	startAngle,
+	isTransit = false,
 }) => {
-	const startRadius = radius - ((radius / INNER_CIRCLE_RADIUS_RATIO) + rulerRadius);
-	const endRadius = startRadius + rulerRadius;
+	const endRadius = isTransit ? startRadius - rulerRadius : startRadius + rulerRadius;
+	const circleRadius = isTransit ? endRadius : startRadius;
 	const rulerPositions = getRulerPositions(
 		point,
 		startRadius,
@@ -77,7 +79,7 @@ const AstrologyRuler: React.FC<AstrologyRulerProps> = ({
 			{rulerPositions}
 			<AstrologyCircle
 				point={point}
-				radius={startRadius}
+				radius={circleRadius}
 				stroke={DARK_GRAY}
 				strokeWidth={CUSPS_STROKE}
 			/>

@@ -1,13 +1,13 @@
-import { COLLISION_RADIUS, FULL_CIRCLE, INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, PADDING, RULER_RADIUS, WHITE, assembleLocatedPoints, getPointPosition } from '@/lib/AstrologyUtils';
+import { COLLISION_RADIUS, FULL_CIRCLE, INDOOR_CIRCLE_RADIUS_RATIO, INNER_CIRCLE_RADIUS_RATIO, MARGIN, PADDING, RULER_RADIUS, assembleLocatedPoints, getPointPosition } from '@/lib/AstrologyUtils';
 import { LocatedPoint, Planets, Point } from '@/types/AstrologyTypes';
 import { Horoscope } from 'circular-natal-horoscope-js';
 import React from 'react';
 import AstrologyAxis from './AstrologyAxis';
+import AstrologyBackground from './AstrologyBackground';
 import AstrologyCircles from './AstrologyCircles';
 import AstrologyCusps from './AstrologyCusps';
 import AstrologyPlanets from './AstrologyPlanets';
 import AstrologyRuler from './AstrologyRuler';
-import AstrologySegment from './AstrologySymbols/AstrologySegment';
 import AstrologyUniverse from './AstrologyUniverse';
 
 interface AstrologyChartProps {
@@ -104,10 +104,13 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 	const radius = y - MARGIN;
 
 	const radiusRatio = radius / INNER_CIRCLE_RADIUS_RATIO;
-	const backgroundRadius = radius - radiusRatio;
+	const radixRadius = radius - radiusRatio;
+	const transitRadius = radius + radiusRatio;
+
 	const thickness = radius / INDOOR_CIRCLE_RADIUS_RATIO;
 
 	const rulerRadius = radiusRatio / RULER_RADIUS;
+	const radixRulerRadius = radius - (radiusRatio + rulerRadius);
 	const pointRadius = radius - (radiusRatio + (2 * rulerRadius) + PADDING);
 	const numbersRadius = (radius / INDOOR_CIRCLE_RADIUS_RATIO) + COLLISION_RADIUS;
 	const endDashedLineRadius = radius - (radiusRatio + rulerRadius);
@@ -136,26 +139,21 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 		>
 			<g id='aspects' />
 			<g id='radix'>
-				<g id='background'>
-					<AstrologySegment
-						point={point}
-						radius={backgroundRadius}
-						angleFrom={0}
-						angleTo={359.99}
-						thickness={thickness}
-						lFlag={1}
-						fill={WHITE}
-					/>
-				</g>
+				<AstrologyBackground
+					id={'radix-background'}
+					point={point}
+					radius={radixRadius}
+					thickness={thickness}
+				/>
 				<AstrologyUniverse
 					point={point}
 					shift={shift}
 					radius={radius}
-					backgroundRadius={backgroundRadius}
+					backgroundRadius={radixRadius}
 				/>
 				<AstrologyRuler
 					point={point}
-					radius={radius}
+					startRadius={radius}
 					rulerRadius={rulerRadius}
 					startAngle={shift}
 				/>
@@ -187,7 +185,31 @@ const AstrologyChart: React.FC<AstrologyChartProps> = ({
 					point={point}
 					radius={radius}
 					thickness={thickness}
-					backgroundRadius={backgroundRadius}
+					backgroundRadius={radixRadius}
+				/>
+			</g>
+			<g id='transits'>
+				<AstrologyBackground
+					id={'transit-background'}
+					point={point}
+					radius={transitRadius}
+					thickness={thickness}
+				/>
+				<AstrologyPlanets
+					point={point}
+					radius={radius}
+					planets={celestialBodyPositions}
+					locatedPoints={locatedPoints}
+					rulerRadius={rulerRadius}
+					pointRadius={pointRadius}
+					shift={shift}
+				/>
+				<AstrologyRuler
+					point={point}
+					startRadius={transitRadius}
+					rulerRadius={rulerRadius}
+					startAngle={shift}
+					isTransit
 				/>
 			</g>
 		</svg>

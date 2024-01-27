@@ -4,6 +4,7 @@ export interface Point {
 }
 
 export interface AstrologySymbolProps {
+	className?: string;
 	point: Point;
 	path?: string;
 	strokeColor?: string;

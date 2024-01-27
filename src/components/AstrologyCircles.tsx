@@ -1,4 +1,4 @@
-import { DARK_GRAY } from '@/lib/AstrologyUtils';
+import { DARK_GRAY, INDOOR_CIRCLE_RADIUS_RATIO } from '@/lib/AstrologyUtils';
 import { Point } from '@/types/AstrologyTypes';
 import React from 'react';
 import AstrologyCircle from './AstrologySymbols/AstrologyCircle';
@@ -21,19 +21,19 @@ const AstrologyCircles: React.FC<AstrologyCirclesProps> = ({
 			point={point}
 			radius={thickness}
 			stroke={DARK_GRAY}
-			strokeWidth={2}
+			strokeWidth={INDOOR_CIRCLE_RADIUS_RATIO}
 		/>
 		<AstrologyCircle
 			point={point}
 			radius={radius}
 			stroke={DARK_GRAY}
-			strokeWidth={2}
+			strokeWidth={INDOOR_CIRCLE_RADIUS_RATIO}
 		/>
 		<AstrologyCircle
 			point={point}
 			radius={backgroundRadius}
 			stroke={DARK_GRAY}
-			strokeWidth={2}
+			strokeWidth={INDOOR_CIRCLE_RADIUS_RATIO}
 		/>
 	</g>
 );

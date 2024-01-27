@@ -1,5 +1,6 @@
 import { AstrologySymbolProps } from '@/types/AstrologyTypes';
 import React from 'react';
+import styles from "./astrologySymbol.css";
 
 const AstrologySymbol: React.FC<AstrologySymbolProps> = ({
 	path,
@@ -10,17 +11,17 @@ const AstrologySymbol: React.FC<AstrologySymbolProps> = ({
 }) => (
 	<svg>
 		<path
+			className={styles.astrologySymbol}
 			d={path}
 			stroke={strokeColor}
 			strokeWidth={strokeWidth}
-			fill='none'
 		/>
 		{hasSecondPath
 			&& <path
+				className={styles.astrologySymbol}
 				d={secondPath}
 				stroke={strokeColor}
 				strokeWidth={strokeWidth}
-				fill='none'
 			/>}
 	</svg>
 );

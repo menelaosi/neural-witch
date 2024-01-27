@@ -128,6 +128,7 @@ const AstrologyPlanets: React.FC<AstrologyPlanetsProps> = ({
 			Math.round(planetAngle % 30).toString(),
 		];
 
+		// Need to fix this to determine which planets are in retrograde correctly
 		if (planetAngle < 0) {
 			textsToShow.push('R');
 		}
